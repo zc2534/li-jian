@@ -916,20 +916,54 @@ document.getElementById('registrationForm').addEventListener('submit',function(e
 
   if(!valid)return;
 
-  // 提交（GitHub Pages 静态版：模拟提交 + 支持 formspree）
+  // 提交（优先调用后端API，失败则静态模式）
   isSubmitting=true;
   var btn=document.getElementById('submitBtn');
   btn.disabled=true;
   btn.textContent='提交中...';
 
-  // 模拟网络延迟
-  setTimeout(function(){
+  // 尝试调用后端 API（Express 服务器环境），超时 5 秒后走静态模式
+  var done=false;
+  var timer=setTimeout(function(){
+    if(!done){done=true;staticSubmit();}
+  },5000);
+
+  fetch('/api/register',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({name,gender,age,idCard,phone,parentName,parentPhone,health,campSession,remarks})
+  })
+  .then(function(r){return r.json()})
+  .then(function(data){
+    clearTimeout(timer);
+    if(done)return;
+    done=true;
+    if(data.success){
+      document.getElementById('successModal').classList.add('active');
+      document.getElementById('registrationForm').reset();
+    }else{
+      alert('报名失败：'+(data.errors||[]).join('\n'));
+    }
+  })
+  .catch(function(){
+    clearTimeout(timer);
+    if(!done){done=true;staticSubmit();}
+  })
+  .finally(function(){
+    if(done){
+      isSubmitting=false;
+      btn.disabled=false;
+      btn.textContent='🎖️ 提交报名';
+    }
+  });
+
+  function staticSubmit(){
     document.getElementById('successModal').classList.add('active');
     document.getElementById('registrationForm').reset();
     isSubmitting=false;
     btn.disabled=false;
     btn.textContent='🎖️ 提交报名';
-  }, 800);
+  }
 });
 
 // ========== 关闭弹窗 ==========

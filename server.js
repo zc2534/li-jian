@@ -42,6 +42,11 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
+// 后台管理页面
+app.get('/admin', (req, res) => {
+  res.sendFile(path.join(__dirname, 'admin.html'));
+});
+
 // 报名提交 API
 app.post('/api/register', (req, res) => {
   const {

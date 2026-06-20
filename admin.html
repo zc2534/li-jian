@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>砺剑夏令营 - 后台管理</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --green-dark:#1a3a0a;--green:#2d5016;--green-light:#3a6b1e;
+  --khaki:#b8973e;--khaki-light:#d4b872;--red:#b71c1c;--red-light:#e53935;
+  --bg:#f0ece0;--white:#fff;--text:#222;--text-light:#666;
+  --shadow:0 2px 12px rgba(0,0,0,.08);--radius:10px;
+}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+
+/* 登录遮罩 */
+.login-overlay{
+  position:fixed;inset:0;z-index:9999;background:linear-gradient(135deg,#0d1f05,#1a3a0a,#2d5016);
+  display:flex;align-items:center;justify-content:center;
+}
+.login-box{
+  background:var(--white);border-radius:16px;padding:40px 32px;width:380px;max-width:90%;
+  text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.3);
+}
+.login-box .logo{font-size:2.5rem;margin-bottom:8px}
+.login-box h2{font-size:1.3rem;color:var(--green-dark);margin-bottom:4px}
+.login-box .sub{font-size:.82rem;color:var(--text-light);margin-bottom:24px}
+.login-box input{
+  width:100%;padding:14px 16px;border:2px solid #e0dcd0;border-radius:8px;
+  font-size:1rem;text-align:center;letter-spacing:4px;margin-bottom:16px;
+  font-family:inherit;
+}
+.login-box input:focus{outline:none;border-color:var(--green)}
+.login-box button{
+  width:100%;padding:14px;background:var(--green);color:var(--white);
+  border:none;border-radius:8px;font-size:1rem;font-weight:700;cursor:pointer;
+  letter-spacing:2px;transition:all .2s;
+}
+.login-box button:hover{background:var(--green-light)}
+.login-box .err{color:var(--red-light);font-size:.82rem;margin-top:8px;display:none}
+
+/* 主界面 */
+.admin-header{
+  background:linear-gradient(135deg,var(--green-dark),var(--green));
+  color:var(--white);padding:16px 24px;display:flex;align-items:center;
+  justify-content:space-between;flex-wrap:wrap;gap:12px;
+}
+.admin-header h1{font-size:1.2rem;letter-spacing:1px}
+.admin-header .user-info{font-size:.82rem;opacity:.8}
+.admin-header button{
+  background:rgba(255,255,255,.15);color:var(--white);border:1px solid rgba(255,255,255,.2);
+  padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.82rem;transition:all .2s;
+}
+.admin-header button:hover{background:rgba(255,255,255,.25)}
+
+.admin-main{max-width:1400px;margin:0 auto;padding:20px 16px}
+
+/* 统计卡片 */
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:24px}
+.stat-card{
+  background:var(--white);border-radius:var(--radius);padding:20px;
+  box-shadow:var(--shadow);border-left:4px solid var(--green);
+}
+.stat-card .label{font-size:.78rem;color:var(--text-light);letter-spacing:1px;margin-bottom:4px}
+.stat-card .num{font-size:2rem;font-weight:900;color:var(--green-dark)}
+.stat-card:nth-child(2){border-left-color:var(--khaki)}
+.stat-card:nth-child(2) .num{color:#8b6914}
+.stat-card:nth-child(3){border-left-color:var(--red)}
+.stat-card:nth-child(3) .num{color:var(--red)}
+.stat-card:nth-child(4){border-left-color:#1976d2}
+.stat-card:nth-child(4) .num{color:#1976d2}
+
+/* 工具栏 */
+.toolbar{
+  display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap;align-items:center;
+}
+.toolbar select,.toolbar input{
+  padding:10px 14px;border:2px solid #d5cfc0;border-radius:8px;
+  font-size:.9rem;background:var(--white);font-family:inherit;
+}
+.toolbar select:focus,.toolbar input:focus{outline:none;border-color:var(--green)}
+.toolbar .spacer{flex:1}
+.toolbar button{
+  padding:10px 20px;border:none;border-radius:8px;font-size:.9rem;
+  font-weight:700;cursor:pointer;transition:all .2s;
+}
+.btn-refresh{background:var(--green);color:var(--white)}
+.btn-refresh:hover{background:var(--green-light)}
+.btn-export{background:var(--khaki);color:var(--white)}
+.btn-export:hover{background:#a08130}
+.btn-refresh.loading{opacity:.7;pointer-events:none}
+
+/* 表格 */
+.table-wrap{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+.table-wrap table{width:100%;border-collapse:collapse}
+.table-wrap thead{background:var(--green-dark);color:var(--khaki-light)}
+.table-wrap th{padding:12px 10px;font-size:.82rem;letter-spacing:1px;text-align:left;white-space:nowrap}
+.table-wrap td{padding:10px;font-size:.85rem;border-bottom:1px solid #eee}
+.table-wrap tbody tr:hover{background:#f9f7f2}
+.table-wrap .badge{
+  display:inline-block;padding:2px 10px;border-radius:12px;font-size:.75rem;font-weight:700;
+}
+.badge-s1{background:#e8f5e9;color:#2e7d32}
+.badge-s2{background:#fff3e0;color:#e65100}
+.badge-s3{background:#e3f2fd;color:#1565c0}
+.badge-s4{background:#fce4ec;color:#c62828}
+.empty-state{text-align:center;padding:60px 20px;color:#999}
+.empty-state .icon{font-size:3rem;margin-bottom:12px}
+
+/* 分页 */
+.pagination{display:flex;gap:8px;justify-content:center;padding:16px;flex-wrap:wrap}
+.pagination button{
+  padding:6px 14px;border:1px solid #d5cfc0;background:var(--white);
+  border-radius:6px;cursor:pointer;font-size:.85rem;transition:all .2s;
+}
+.pagination button.active{background:var(--green);color:var(--white);border-color:var(--green)}
+.pagination button:hover:not(.active){background:#f0ece0}
+.pagination button:disabled{opacity:.4;cursor:not-allowed}
+
+/* 弹窗 */
+.modal-overlay{
+  display:none;position:fixed;inset:0;z-index:9998;
+  background:rgba(0,0,0,.6);align-items:center;justify-content:center;
+}
+.modal-overlay.active{display:flex}
+.modal{
+  background:var(--white);border-radius:var(--radius);padding:28px;max-width:500px;
+  width:90%;max-height:80vh;overflow-y:auto;animation:in .25s ease;
+}
+@keyframes in{from{transform:scale(.9);opacity:0}to{transform:scale(1);opacity:1}}
+.modal h3{color:var(--green-dark);margin-bottom:16px}
+.modal .row{margin-bottom:10px;display:flex;gap:8px}
+.modal .row .key{font-weight:700;min-width:80px;color:var(--text-light);font-size:.85rem}
+.modal .row .val{font-size:.9rem;flex:1}
+.modal .close-btn{
+  display:block;margin:20px auto 0;padding:10px 32px;
+  background:var(--green);color:var(--white);border:none;
+  border-radius:8px;cursor:pointer;font-size:.9rem;font-weight:700;
+}
+
+/* 实时指示器 */
+.live-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#4caf50;margin-right:6px;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.last-update{font-size:.75rem;color:var(--text-light)}
+
+@media(max-width:768px){
+  .stats-row{grid-template-columns:1fr 1fr}
+  .stat-card .num{font-size:1.5rem}
+  .toolbar{flex-direction:column}
+  .toolbar select,.toolbar input{width:100%}
+  .toolbar .spacer{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- 登录遮罩 -->
+<div class="login-overlay" id="loginOverlay">
+  <div class="login-box">
+    <div class="logo">🎖️</div>
+    <h2>砺剑夏令营 · 后台管理</h2>
+    <p class="sub">请输入管理密码</p>
+    <input type="password" id="passwordInput" placeholder="输入密码" autofocus>
+    <button onclick="doLogin()">登 录</button>
+    <p class="err" id="loginError">密码错误，请重试</p>
+  </div>
+</div>
+
+<!-- 主界面 -->
+<div id="mainApp" style="display:none">
+  <header class="admin-header">
+    <div>
+      <h1>🎖️ 砺剑军事夏令营 · 报名管理</h1>
+      <span class="user-info"><span class="live-dot"></span>实时监控中</span>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center">
+      <span class="last-update" id="lastUpdate"></span>
+      <button onclick="doLogout()">退出登录</button>
+    </div>
+  </header>
+
+  <div class="admin-main">
+    <!-- 统计卡片 -->
+    <div class="stats-row">
+      <div class="stat-card"><div class="label">总报名人数</div><div class="num" id="statTotal">0</div></div>
+      <div class="stat-card"><div class="label">今日新增</div><div class="num" id="statToday">0</div></div>
+      <div class="stat-card"><div class="label">男生 / 女生</div><div class="num" id="statGender">-</div></div>
+      <div class="stat-card"><div class="label">已选营期数</div><div class="num" id="statSessions">-</div></div>
+    </div>
+
+    <!-- 工具栏 -->
+    <div class="toolbar">
+      <select id="filterSession" onchange="renderTable()">
+        <option value="">全部营期</option>
+        <option value="第一期">第一期（7.12-7.18）</option>
+        <option value="第二期">第二期（7.26-8.1）</option>
+        <option value="第三期">第三期（8.9-8.15）</option>
+        <option value="第四期">第四期（8.16-8.22）</option>
+      </select>
+      <input type="text" id="filterName" placeholder="搜索姓名..." oninput="renderTable()">
+      <div class="spacer"></div>
+      <button class="btn-export" onclick="exportCSV()">📥 导出 CSV</button>
+      <button class="btn-refresh" id="btnRefresh" onclick="refreshData()">🔄 刷新数据</button>
+    </div>
+
+    <!-- 表格 -->
+    <div class="table-wrap">
+      <div style="overflow-x:auto">
+      <table>
+        <thead>
+          <tr>
+            <th>序号</th><th>姓名</th><th>性别</th><th>年龄</th><th>手机号</th>
+            <th>监护人</th><th>监护人电话</th><th>营期</th><th>报名时间</th><th>操作</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+      </div>
+      <div class="empty-state" id="emptyState" style="display:none">
+        <div class="icon">📭</div><p>暂无报名数据</p>
+      </div>
+      <div class="pagination" id="pagination"></div>
+    </div>
+  </div>
+</div>
+
+<!-- 详情弹窗 -->
+<div class="modal-overlay" id="detailModal" onclick="if(event.target===this)closeDetail()">
+  <div class="modal" id="detailContent"></div>
+</div>
+
+<script>
+// ===================== 配置 =====================
+var ADMIN_PASSWORD = 'lijian2026';
+var PAGE_SIZE = 15;
+var currentPage = 1;
+
+// ===================== 登录 =====================
+document.getElementById('passwordInput').addEventListener('keydown',function(e){
+  if(e.key==='Enter')doLogin();
+});
+
+function doLogin(){
+  var pwd=document.getElementById('passwordInput').value;
+  if(pwd===ADMIN_PASSWORD){
+    document.getElementById('loginOverlay').style.display='none';
+    document.getElementById('mainApp').style.display='block';
+    document.getElementById('loginError').style.display='none';
+    refreshData();
+  }else{
+    document.getElementById('loginError').style.display='block';
+    document.getElementById('passwordInput').value='';
+  }
+}
+
+function doLogout(){
+  document.getElementById('loginOverlay').style.display='flex';
+  document.getElementById('mainApp').style.display='none';
+  document.getElementById('passwordInput').value='';
+}
+
+// ===================== 数据获取 =====================
+var allData=[];
+
+function refreshData(){
+  var btn=document.getElementById('btnRefresh');
+  btn.classList.add('loading');
+  btn.textContent='刷新中...';
+
+  fetch('/api/registrations?key=lijian2026')
+    .then(function(r){return r.json()})
+    .then(function(res){
+      allData=(res.data||[]).sort(function(a,b){
+        return new Date(b.createdAt)-new Date(a.createdAt);
+      });
+      updateStats();
+      renderTable();
+      document.getElementById('lastUpdate').textContent='更新于 '+new Date().toLocaleTimeString();
+    })
+    .catch(function(){
+      allData=[];
+      updateStats();
+      renderTable();
+      document.getElementById('lastUpdate').textContent='加载失败';
+    })
+    .finally(function(){
+      btn.classList.remove('loading');
+      btn.textContent='🔄 刷新数据';
+    });
+}
+
+// ===================== 统计 =====================
+function updateStats(){
+  document.getElementById('statTotal').textContent=allData.length;
+  var today=new Date().toISOString().split('T')[0];
+  var todayCount=allData.filter(function(r){return r.createdAt.split('T')[0]===today}).length;
+  document.getElementById('statToday').textContent=todayCount;
+  var males=allData.filter(function(r){return r.gender==='男'}).length;
+  var females=allData.filter(function(r){return r.gender==='女'}).length;
+  document.getElementById('statGender').textContent=males+' / '+females;
+  var sessions={};
+  allData.forEach(function(r){
+    var s=(r.campSession||'').charAt(0)+'期';
+    sessions[s]=(sessions[s]||0)+1;
+  });
+  var sStr=Object.keys(sessions).map(function(k){return k+':'+sessions[k]}).join(' ');
+  document.getElementById('statSessions').textContent=sStr||'-';
+}
+
+// ===================== 表格渲染 =====================
+function renderTable(){
+  var sessionFilter=document.getElementById('filterSession').value;
+  var nameFilter=document.getElementById('filterName').value.toLowerCase();
+
+  var filtered=allData.filter(function(r){
+    if(sessionFilter && (r.campSession||'').indexOf(sessionFilter)!==0)return false;
+    if(nameFilter && (r.name||'').toLowerCase().indexOf(nameFilter)===-1)return false;
+    return true;
+  });
+
+  var totalPages=Math.ceil(filtered.length/PAGE_SIZE)||1;
+  if(currentPage>totalPages)currentPage=totalPages;
+  var start=(currentPage-1)*PAGE_SIZE;
+  var pageData=filtered.slice(start,start+PAGE_SIZE);
+
+  var tbody=document.getElementById('tableBody');
+  if(pageData.length===0){
+    tbody.innerHTML='';
+    document.getElementById('emptyState').style.display='block';
+    document.getElementById('pagination').innerHTML='';
+    return;
+  }
+  document.getElementById('emptyState').style.display='none';
+
+  var badgeClass=function(s){
+    if(!s)return'badge-s1';
+    if(s.indexOf('一')>=0)return'badge-s1';
+    if(s.indexOf('二')>=0)return'badge-s2';
+    if(s.indexOf('三')>=0)return'badge-s3';
+    if(s.indexOf('四')>=0)return'badge-s4';
+    return'badge-s1';
+  };
+
+  tbody.innerHTML=pageData.map(function(r,i){
+    var time=r.createdAt?new Date(r.createdAt).toLocaleString('zh-CN',{hour12:false}):'-';
+    return '<tr>'+
+      '<td>'+(start+i+1)+'</td>'+
+      '<td><strong>'+esc(r.name)+'</strong></td>'+
+      '<td>'+esc(r.gender)+'</td>'+
+      '<td>'+r.age+'岁</td>'+
+      '<td>'+esc(r.phone)+'</td>'+
+      '<td>'+esc(r.parentName)+'</td>'+
+      '<td>'+esc(r.parentPhone)+'</td>'+
+      '<td><span class="badge '+badgeClass(r.campSession)+'">'+esc(r.campSession||'-')+'</span></td>'+
+      '<td style="font-size:.78rem">'+time+'</td>'+
+      '<td><button style="padding:4px 10px;background:#f0ece0;border:1px solid #d5cfc0;border-radius:6px;cursor:pointer;font-size:.78rem" onclick="showDetail(\''+r.id+'\')">详情</button></td>'+
+    '</tr>';
+  }).join('');
+
+  // 分页
+  var pag=document.getElementById('pagination');
+  var html='<button '+(currentPage<=1?'disabled':'')+' onclick="goPage('+(currentPage-1)+')">上一页</button>';
+  for(var p=1;p<=totalPages;p++){
+    html+='<button class="'+(p===currentPage?'active':'')+'" onclick="goPage('+p+')">'+p+'</button>';
+  }
+  html+='<button '+(currentPage>=totalPages?'disabled':'')+' onclick="goPage('+(currentPage+1)+')">下一页</button>';
+  html+='<span style="padding:6px;font-size:.82rem;color:#999">共 '+filtered.length+' 条</span>';
+  pag.innerHTML=html;
+}
+
+function goPage(p){
+  currentPage=p;
+  renderTable();
+  window.scrollTo({top:300,behavior:'smooth'});
+}
+
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+
+// ===================== 详情弹窗 =====================
+function showDetail(id){
+  var r=allData.find(function(d){return d.id===id});
+  if(!r)return;
+  var time=r.createdAt?new Date(r.createdAt).toLocaleString('zh-CN',{hour12:false}):'-';
+  var html='<h3>📋 报名详情</h3>'+
+    '<div class="row"><span class="key">姓名</span><span class="val">'+esc(r.name)+'</span></div>'+
+    '<div class="row"><span class="key">性别</span><span class="val">'+esc(r.gender)+'</span></div>'+
+    '<div class="row"><span class="key">年龄</span><span class="val">'+r.age+'岁</span></div>'+
+    '<div class="row"><span class="key">身份证</span><span class="val">'+esc(r.idCard)+'</span></div>'+
+    '<div class="row"><span class="key">手机号</span><span class="val">'+esc(r.phone)+'</span></div>'+
+    '<div class="row"><span class="key">监护人</span><span class="val">'+esc(r.parentName)+'</span></div>'+
+    '<div class="row"><span class="key">监护人电话</span><span class="val">'+esc(r.parentPhone)+'</span></div>'+
+    '<div class="row"><span class="key">营期</span><span class="val">'+esc(r.campSession||'-')+'</span></div>'+
+    '<div class="row"><span class="key">健康情况</span><span class="val">'+esc(r.health||'未填写')+'</span></div>'+
+    '<div class="row"><span class="key">备注</span><span class="val">'+esc(r.remarks||'无')+'</span></div>'+
+    '<div class="row"><span class="key">报名时间</span><span class="val">'+time+'</span></div>'+
+    '<button class="close-btn" onclick="closeDetail()">关闭</button>';
+  document.getElementById('detailContent').innerHTML=html;
+  document.getElementById('detailModal').classList.add('active');
+}
+
+function closeDetail(){
+  document.getElementById('detailModal').classList.remove('active');
+}
+
+// ===================== 导出 CSV =====================
+function exportCSV(){
+  if(allData.length===0){alert('暂无数据可导出');return}
+  var headers=['姓名','性别','年龄','身份证号','手机号','监护人','监护人电话','营期','健康状况','备注','报名时间'];
+  var keys=['name','gender','age','idCard','phone','parentName','parentPhone','campSession','health','remarks','createdAt'];
+  var csv='﻿'+headers.join(',')+'\n';
+  allData.forEach(function(r){
+    csv+=keys.map(function(k){
+      var v=String(r[k]||'').replace(/"/g,'""');
+      return '"'+v+'"';
+    }).join(',')+'\n';
+  });
+  var blob=new Blob([csv],{type:'text/csv;charset=utf-8'});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement('a');
+  a.href=url;a.download='砺剑夏令营报名数据_'+new Date().toISOString().split('T')[0]+'.csv';
+  a.click();URL.revokeObjectURL(url);
+}
+
+// ===================== 自动刷新 =====================
+setInterval(function(){
+  if(document.getElementById('mainApp').style.display!=='none'){
+    refreshData();
+  }
+},30000);
+</script>
+</body>
+</html>
