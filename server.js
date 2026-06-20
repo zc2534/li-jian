@@ -4,14 +4,15 @@ const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const IS_VERCEL = !!process.env.VERCEL;
 
 // 中间件
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname)));
 
-// 确保 data 目录存在
-const dataDir = path.join(__dirname, 'data');
+// Vercel 上用 /tmp，本地用 data/ 目录
+const dataDir = IS_VERCEL ? '/tmp' : path.join(__dirname, 'data');
 if (!fs.existsSync(dataDir)) {
   fs.mkdirSync(dataDir, { recursive: true });
 }
@@ -136,12 +137,17 @@ app.get('/api/registrations', (req, res) => {
   res.json({ success: true, data: registrations });
 });
 
-// 启动服务器
-app.listen(PORT, () => {
-  console.log('═══════════════════════════════════════');
-  console.log('  🎖️  长沙砺剑军事夏令营报名系统');
-  console.log('═══════════════════════════════════════');
-  console.log(`  本地访问: http://localhost:${PORT}`);
-  console.log(`  管理后台: http://localhost:${PORT}/api/registrations?key=lijian2026`);
-  console.log('═══════════════════════════════════════');
-});
+// 导出给 Vercel Serverless 使用
+module.exports = app;
+
+// 本地开发时启动服务器（Vercel 上不需要 listen）
+if (!IS_VERCEL) {
+  app.listen(PORT, () => {
+    console.log('═══════════════════════════════════════');
+    console.log('  🎖️  长沙砺剑军事夏令营报名系统');
+    console.log('═══════════════════════════════════════');
+    console.log(`  本地访问: http://localhost:${PORT}`);
+    console.log(`  管理后台: http://localhost:${PORT}/api/registrations?key=lijian2026`);
+    console.log('═══════════════════════════════════════');
+  });
+}
