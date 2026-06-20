@@ -1,0 +1,12 @@
+{
+  "name": "lijian-summer-camp",
+  "version": "1.0.0",
+  "description": "长沙砺剑军事夏令营报名系统",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

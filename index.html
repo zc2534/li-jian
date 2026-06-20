@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>长沙砺剑军事夏令营 - 报名通道</title>
+<style>
+/* ========== 全局重置 & 变量 ========== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --green-dark:#1a3a0a;
+  --green:#2d5016;
+  --green-light:#3a6b1e;
+  --green-lighter:#4a8530;
+  --khaki:#b8973e;
+  --khaki-light:#d4b872;
+  --red:#b71c1c;
+  --red-light:#e53935;
+  --gold:#d4a017;
+  --bg-dark:#121212;
+  --bg-section:#f5f0e8;
+  --text:#222;
+  --text-light:#555;
+  --white:#fff;
+  --shadow:0 4px 20px rgba(0,0,0,.12);
+  --shadow-lg:0 8px 40px rgba(0,0,0,.18);
+  --radius:12px;
+  --radius-sm:8px;
+  --max-width:1200px;
+  --nav-height:68px;
+}
+html{scroll-behavior:smooth;scroll-padding-top:var(--nav-height)}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Helvetica Neue",sans-serif;
+  color:var(--text);
+  background:var(--bg-dark);
+  line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ========== 导航栏 ========== */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  background:rgba(18,18,18,.95);
+  backdrop-filter:blur(12px);
+  border-bottom:2px solid var(--green-light);
+  height:var(--nav-height);
+  display:flex;align-items:center;
+}
+.nav-inner{
+  max-width:var(--max-width);width:100%;margin:0 auto;
+  padding:0 24px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.nav-logo{
+  display:flex;align-items:center;gap:10px;
+  font-size:1.25rem;font-weight:800;color:var(--khaki-light);
+  text-decoration:none;letter-spacing:1px;
+}
+.nav-logo .star{font-size:1.5rem;color:var(--red-light)}
+.nav-links{display:flex;align-items:center;gap:8px;list-style:none}
+.nav-links a{
+  color:#ccc;text-decoration:none;padding:8px 14px;border-radius:6px;
+  font-size:.92rem;transition:all .2s;white-space:nowrap;
+}
+.nav-links a:hover{color:var(--khaki-light);background:rgba(255,255,255,.05)}
+.nav-cta{
+  background:var(--red)!important;color:var(--white)!important;
+  font-weight:700!important;padding:8px 20px!important;
+}
+.nav-cta:hover{background:var(--red-light)!important;color:var(--white)!important}
+.nav-toggle{
+  display:none;background:none;border:none;color:var(--white);font-size:1.6rem;
+  cursor:pointer;padding:4px 8px;
+}
+
+/* ========== Hero 区块 ========== */
+.hero{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  text-align:center;position:relative;overflow:hidden;
+  background:linear-gradient(135deg,#0d1f05 0%,#1a3a0a 30%,#2d5016 60%,#1a3a0a 100%);
+  padding:100px 24px 80px;
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse at 20% 50%,rgba(180,150,60,.12) 0%,transparent 50%),
+    radial-gradient(ellipse at 80% 50%,rgba(180,150,60,.08) 0%,transparent 50%),
+    repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(255,255,255,.008) 8px,rgba(255,255,255,.008) 16px);
+  pointer-events:none;
+}
+.hero-content{position:relative;z-index:1;max-width:800px}
+.hero-badge{
+  display:inline-block;background:rgba(183,28,28,.85);color:var(--white);
+  padding:6px 24px;border-radius:30px;font-size:.9rem;font-weight:700;
+  letter-spacing:4px;margin-bottom:20px;border:1px solid rgba(255,255,255,.2);
+}
+.hero h1{
+  font-size:clamp(2rem,5vw,3.5rem);font-weight:900;color:var(--khaki-light);
+  letter-spacing:3px;line-height:1.2;margin-bottom:16px;
+  text-shadow:0 2px 10px rgba(0,0,0,.5);
+}
+.hero h1 span{color:var(--white)}
+.hero .subtitle{
+  font-size:clamp(1rem,2vw,1.25rem);color:rgba(255,255,255,.75);
+  margin-bottom:12px;letter-spacing:2px;
+}
+.hero .desc{
+  font-size:.95rem;color:rgba(255,255,255,.55);max-width:560px;
+  margin:0 auto 36px;line-height:1.8;
+}
+.hero-buttons{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.btn{
+  display:inline-block;padding:14px 36px;border-radius:50px;
+  font-size:1rem;font-weight:700;text-decoration:none;cursor:pointer;
+  border:none;transition:all .3s;letter-spacing:1px;
+}
+.btn-primary{
+  background:linear-gradient(135deg,var(--red),var(--red-light));
+  color:var(--white);box-shadow:0 6px 24px rgba(183,28,28,.4);
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(183,28,28,.6)}
+.btn-outline{
+  background:transparent;color:var(--khaki-light);
+  border:2px solid var(--khaki-light);
+}
+.btn-outline:hover{background:rgba(184,151,62,.1);transform:translateY(-2px)}
+.hero-stats{
+  display:flex;gap:40px;justify-content:center;margin-top:48px;flex-wrap:wrap;
+}
+.hero-stat{text-align:center}
+.hero-stat .num{font-size:2rem;font-weight:900;color:var(--khaki-light)}
+.hero-stat .label{font-size:.8rem;color:rgba(255,255,255,.5);letter-spacing:1px}
+
+/* ========== 通用区块 ========== */
+.section{padding:80px 24px}
+.section-dark{background:var(--bg-dark);color:var(--white)}
+.section-light{background:var(--bg-section)}
+.section-inner{max-width:var(--max-width);margin:0 auto}
+.section-title{
+  text-align:center;margin-bottom:52px;
+}
+.section-title h2{
+  font-size:clamp(1.6rem,3vw,2.2rem);font-weight:900;
+  letter-spacing:2px;margin-bottom:8px;
+}
+.section-dark .section-title h2{color:var(--khaki-light)}
+.section-light .section-title h2{color:var(--green-dark)}
+.section-title .divider{
+  display:flex;align-items:center;justify-content:center;gap:12px;
+}
+.section-title .divider .line{width:50px;height:2px;background:var(--khaki)}
+.section-title .divider .star{color:var(--red-light);font-size:1.2rem}
+.section-title p{color:var(--text-light);font-size:.95rem;margin-top:6px}
+.section-dark .section-title p{color:rgba(255,255,255,.5)}
+
+/* ========== 亮点卡片 ========== */
+.highlights-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:24px;
+}
+.highlight-card{
+  background:var(--white);border-radius:var(--radius);padding:32px 24px;
+  text-align:center;box-shadow:var(--shadow);transition:all .3s;
+  border-top:4px solid var(--green-light);
+}
+.highlight-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg)}
+.highlight-card .icon{
+  width:72px;height:72px;border-radius:50%;
+  background:linear-gradient(135deg,var(--green),var(--green-light));
+  color:var(--white);display:flex;align-items:center;justify-content:center;
+  font-size:2rem;margin:0 auto 16px;
+}
+.highlight-card h3{font-size:1.15rem;font-weight:700;margin-bottom:8px;color:var(--green-dark)}
+.highlight-card p{font-size:.88rem;color:var(--text-light);line-height:1.7}
+
+/* ========== 日程表 ========== */
+.schedule-table{
+  width:100%;border-collapse:collapse;background:var(--white);
+  border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);
+}
+.schedule-table thead{background:var(--green-dark);color:var(--khaki-light)}
+.schedule-table th{
+  padding:16px;font-size:.95rem;letter-spacing:1px;font-weight:700;
+}
+.schedule-table td{padding:14px 16px;font-size:.9rem;border-bottom:1px solid #eee}
+.schedule-table tbody tr:hover{background:#f9f7f2}
+.schedule-table .time{font-weight:700;color:var(--green);white-space:nowrap}
+.schedule-table .tag{
+  display:inline-block;padding:2px 10px;border-radius:12px;
+  font-size:.78rem;font-weight:700;
+}
+.tag-train{background:#e8f5e9;color:#2e7d32}
+.tag-outdoor{background:#fff3e0;color:#e65100}
+.tag-team{background:#e3f2fd;color:#1565c0}
+.tag-life{background:#fce4ec;color:#c62828}
+
+/* 移动端日程卡片 */
+.schedule-cards{display:none}
+
+/* ========== 教官 ========== */
+.instructors-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:24px;
+}
+.instructor-card{
+  background:var(--white);border-radius:var(--radius);overflow:hidden;
+  box-shadow:var(--shadow);text-align:center;transition:all .3s;
+}
+.instructor-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.instructor-card .avatar{
+  width:100%;height:200px;background:linear-gradient(135deg,var(--green),var(--khaki));
+  display:flex;align-items:center;justify-content:center;font-size:4rem;
+}
+.instructor-card .info{padding:20px}
+.instructor-card h3{font-size:1.1rem;font-weight:700;color:var(--green-dark)}
+.instructor-card .rank{color:var(--red);font-size:.8rem;font-weight:700;letter-spacing:1px;margin:4px 0}
+.instructor-card p{font-size:.85rem;color:var(--text-light);margin-top:8px}
+
+/* ========== 报名须知 ========== */
+.info-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:20px;
+}
+.info-item{
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);
+  border-radius:var(--radius-sm);padding:24px;text-align:center;
+}
+.info-item .label{font-size:.8rem;color:var(--khaki-light);letter-spacing:2px;margin-bottom:6px}
+.info-item .value{font-size:1.15rem;font-weight:700;color:var(--white)}
+
+/* ========== 报名表单 ========== */
+#register{background:var(--bg-section)}
+.form-wrapper{
+  max-width:720px;margin:0 auto;
+  background:var(--white);border-radius:var(--radius);padding:40px;
+  box-shadow:var(--shadow-lg);
+  border-top:5px solid var(--green);
+}
+.form-wrapper h3{text-align:center;font-size:1.4rem;margin-bottom:32px;color:var(--green-dark)}
+.form-group{margin-bottom:20px}
+.form-group label{
+  display:block;font-weight:700;font-size:.9rem;margin-bottom:6px;color:var(--text);
+}
+.form-group label .required{color:var(--red);margin-left:2px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-control{
+  width:100%;padding:12px 16px;border:2px solid #e0dcd0;
+  border-radius:var(--radius-sm);font-size:.95rem;transition:all .2s;
+  background:#fafaf7;font-family:inherit;
+}
+.form-control:focus{outline:none;border-color:var(--green);background:var(--white);box-shadow:0 0 0 3px rgba(45,80,22,.08)}
+select.form-control{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23555' d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
+textarea.form-control{resize:vertical;min-height:90px}
+.form-control.error{border-color:var(--red-light)}
+.form-error{color:var(--red-light);font-size:.8rem;margin-top:4px;display:none}
+.form-error.show{display:block}
+.form-submit{
+  width:100%;padding:16px;font-size:1.1rem;font-weight:700;
+  background:linear-gradient(135deg,var(--green),var(--green-light));
+  color:var(--white);border:none;border-radius:50px;cursor:pointer;
+  letter-spacing:2px;transition:all .3s;margin-top:8px;
+}
+.form-submit:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(45,80,22,.4)}
+.form-submit:disabled{opacity:.6;cursor:not-allowed;transform:none}
+.form-note{text-align:center;font-size:.82rem;color:var(--text-light);margin-top:16px}
+
+/* ========== 成功弹窗 ========== */
+.modal-overlay{
+  display:none;position:fixed;inset:0;z-index:9999;
+  background:rgba(0,0,0,.7);align-items:center;justify-content:center;
+  backdrop-filter:blur(4px);
+}
+.modal-overlay.active{display:flex}
+.modal{
+  background:var(--white);border-radius:var(--radius);padding:48px 32px;
+  text-align:center;max-width:440px;width:90%;animation:modalIn .4s ease;
+}
+@keyframes modalIn{from{transform:scale(.8);opacity:0}to{transform:scale(1);opacity:1}}
+.modal .check{
+  width:80px;height:80px;border-radius:50%;
+  background:linear-gradient(135deg,var(--green),var(--green-light));
+  color:var(--white);display:flex;align-items:center;justify-content:center;
+  font-size:2.5rem;margin:0 auto 20px;
+}
+.modal h3{font-size:1.5rem;color:var(--green-dark);margin-bottom:8px}
+.modal p{color:var(--text-light);font-size:.92rem;margin-bottom:20px}
+.modal .btn{background:var(--green);color:var(--white)}
+
+/* ========== FAQ ========== */
+.faq-list{max-width:800px;margin:0 auto}
+.faq-item{
+  background:var(--white);border-radius:var(--radius-sm);margin-bottom:12px;
+  box-shadow:0 2px 8px rgba(0,0,0,.06);overflow:hidden;
+}
+.faq-q{
+  padding:18px 20px;display:flex;align-items:center;justify-content:space-between;
+  cursor:pointer;font-weight:700;font-size:.95rem;color:var(--green-dark);
+  user-select:none;gap:12px;
+}
+.faq-q .arrow{font-size:1.2rem;transition:transform .3s;color:var(--khaki);flex-shrink:0}
+.faq-item.open .faq-q .arrow{transform:rotate(180deg)}
+.faq-a{
+  max-height:0;overflow:hidden;transition:max-height .4s ease;
+  font-size:.9rem;color:var(--text-light);line-height:1.8;
+}
+.faq-item.open .faq-a{max-height:300px}
+.faq-a-inner{padding:0 20px 18px}
+
+/* ========== 页脚 ========== */
+.footer{
+  background:#0a0a0a;color:rgba(255,255,255,.5);text-align:center;
+  padding:40px 24px;font-size:.85rem;line-height:2;
+  border-top:2px solid var(--green-dark);
+}
+.footer strong{color:var(--khaki-light)}
+
+/* ========== 返回顶部 ========== */
+.back-top{
+  position:fixed;bottom:28px;right:28px;z-index:900;
+  width:48px;height:48px;border-radius:50%;
+  background:var(--green);color:var(--white);border:none;
+  font-size:1.4rem;cursor:pointer;box-shadow:var(--shadow);
+  display:none;align-items:center;justify-content:center;
+  transition:all .3s;
+}
+.back-top.visible{display:flex}
+.back-top:hover{background:var(--green-light);transform:translateY(-2px)}
+
+/* ========== 响应式 ========== */
+@media(max-width:768px){
+  .nav-links{
+    position:fixed;top:var(--nav-height);left:0;right:0;
+    background:rgba(18,18,18,.98);flex-direction:column;padding:16px;
+    display:none;border-bottom:2px solid var(--green-light);
+  }
+  .nav-links.open{display:flex}
+  .nav-links a{width:100%;text-align:center;padding:12px}
+  .nav-toggle{display:block}
+  .nav-cta{width:100%}
+
+  .hero{padding:80px 20px 60px;min-height:auto}
+  .hero h1{font-size:1.8rem}
+  .hero-stats{gap:24px}
+  .hero-stat .num{font-size:1.5rem}
+
+  .section{padding:56px 16px}
+
+  .schedule-table{display:none}
+  .schedule-cards{display:flex;flex-direction:column;gap:12px}
+  .schedule-card{
+    background:var(--white);border-radius:var(--radius-sm);padding:16px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);border-left:4px solid var(--green);
+  }
+  .schedule-card .s-time{font-weight:700;color:var(--green);font-size:.9rem}
+  .schedule-card .s-title{font-weight:700;margin:4px 0;font-size:.95rem}
+  .schedule-card .s-desc{font-size:.82rem;color:var(--text-light)}
+
+  .form-row{grid-template-columns:1fr}
+  .form-wrapper{padding:24px 18px}
+  .highlights-grid{grid-template-columns:1fr}
+  .instructors-grid{grid-template-columns:1fr}
+  .info-grid{grid-template-columns:1fr 1fr}
+}
+
+@media(max-width:400px){
+  .info-grid{grid-template-columns:1fr}
+  .hero-buttons{flex-direction:column;align-items:center}
+  .btn{width:100%;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<!-- ==================== 导航栏 ==================== -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <span class="star">★</span> 砺剑军事夏令营
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="菜单">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#highlights">营地亮点</a></li>
+      <li><a href="#schedule">日程安排</a></li>
+      <li><a href="#instructors">教官风采</a></li>
+      <li><a href="#info">报名须知</a></li>
+      <li><a href="#faq">常见问题</a></li>
+      <li><a href="#register" class="nav-cta">立即报名</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ==================== 英雄区 ==================== -->
+<section class="hero" id="home">
+  <div class="hero-content">
+    <div class="hero-badge">★ 2026 暑期招生 ★</div>
+    <h1>长沙<span>砺剑</span>军事夏令营</h1>
+    <p class="subtitle">磨砺意志 · 锤炼品格 · 铸就军魂</p>
+    <p class="desc">
+      专为6-16岁青少年打造的军事化成长营地，通过军事训练、野外生存、团队协作等课程，
+      帮助孩子养成自律、自信、自强的优秀品质。
+    </p>
+    <div class="hero-buttons">
+      <a href="#register" class="btn btn-primary">🚀 立即报名</a>
+      <a href="#highlights" class="btn btn-outline">了解更多</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="num">8年</div><div class="label">办学经验</div></div>
+      <div class="hero-stat"><div class="num">5000+</div><div class="label">结业学员</div></div>
+      <div class="hero-stat"><div class="num">98%</div><div class="label">家长好评</div></div>
+      <div class="hero-stat"><div class="num">7天6夜</div><div class="label">精品课程</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 营地亮点 ==================== -->
+<section class="section section-light" id="highlights">
+  <div class="section-inner">
+    <div class="section-title">
+      <h2>营地亮点</h2>
+      <div class="divider"><span class="line"></span><span class="star">★</span><span class="line"></span></div>
+      <p>六大核心课程，全方位塑造精英少年</p>
+    </div>
+    <div class="highlights-grid">
+      <div class="highlight-card">
+        <div class="icon">🪖</div>
+        <h3>军事基础训练</h3>
+        <p>队列训练、军姿养成、军体拳、战术基础动作，培养严格纪律意识和雷厉风行作风</p>
+      </div>
+      <div class="highlight-card">
+        <div class="icon">🏕️</div>
+        <h3>野外生存技能</h3>
+        <p>帐篷搭建、方向辨别、野外取火、净水处理、紧急救护，锻炼独立生存能力</p>
+      </div>
+      <div class="highlight-card">
+        <div class="icon">🤝</div>
+        <h3>团队协作拓展</h3>
+        <p>信任背摔、穿越电网、团队接力、真人CS战术对抗，培养合作精神和领导力</p>
+      </div>
+      <div class="highlight-card">
+        <div class="icon">💪</div>
+        <h3>体能强化训练</h3>
+        <p>晨跑拉练、障碍越野、攀岩速降、力量训练，全面提升身体素质和意志力</p>
+      </div>
+      <div class="highlight-card">
+        <div class="icon">❤️</div>
+        <h3>感恩励志教育</h3>
+        <p>感恩课堂、家书书写、励志影片、心灵对话，让孩子学会感恩与珍惜</p>
+      </div>
+      <div class="highlight-card">
+        <div class="icon">📋</div>
+        <h3>习惯养成计划</h3>
+        <p>内务整理、时间管理、物品归位、个人卫生，21天习惯养成，受益终生</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 日程安排 ==================== -->
+<section class="section section-dark" id="schedule">
+  <div class="section-inner">
+    <div class="section-title">
+      <h2>7天日程安排</h2>
+      <div class="divider"><span class="line"></span><span class="star">★</span><span class="line"></span></div>
+      <p>每一天都充实而有意义</p>
+    </div>
+
+    <!-- 桌面端表格 -->
+    <div style="overflow-x:auto">
+    <table class="schedule-table">
+      <thead>
+        <tr><th style="width:12%">日期</th><th style="width:15%">时段</th><th>课程内容</th><th style="width:12%">类型</th></tr>
+      </thead>
+      <tbody>
+        <tr><td rowspan="3"><strong>第1天</strong><br>开营启航</td><td class="time">上午</td><td>入营报到、物资发放、宿舍分配、开营仪式</td><td><span class="tag tag-life">入营</span></td></tr>
+        <tr><td class="time">下午</td><td>破冰团建、营地参观、安全纪律教育、军姿训练</td><td><span class="tag tag-team">团队</span></td></tr>
+        <tr><td class="time">晚上</td><td>迎新晚会、自我介绍、营规学习、内务教学</td><td><span class="tag tag-life">生活</span></td></tr>
+
+        <tr><td rowspan="3"><strong>第2天</strong><br>基础训练</td><td class="time">上午</td><td>晨跑1公里、队列训练（立正/稍息/跨立）、军体拳第一套</td><td><span class="tag tag-train">军事</span></td></tr>
+        <tr><td class="time">下午</td><td>战术基础动作（卧倒/匍匐/跃进）、400米障碍体验</td><td><span class="tag tag-train">军事</span></td></tr>
+        <tr><td class="time">晚上</td><td>军事题材电影观赏、观后感分享</td><td><span class="tag tag-life">生活</span></td></tr>
+
+        <tr><td rowspan="3"><strong>第3天</strong><br>野外生存</td><td class="time">上午</td><td>野外方向辨别（指北针/地图）、帐篷搭建实操</td><td><span class="tag tag-outdoor">野外</span></td></tr>
+        <tr><td class="time">下午</td><td>野外取火技巧、净水处理、SOS求救信号、简易担架制作</td><td><span class="tag tag-outdoor">野外</span></td></tr>
+        <tr><td class="time">晚上</td><td>星空观测、野外露营体验（营地内安全区域）</td><td><span class="tag tag-outdoor">野外</span></td></tr>
+
+        <tr><td rowspan="3"><strong>第4天</strong><br>团队拓展</td><td class="time">上午</td><td>信任背摔、穿越电网、团队接力挑战</td><td><span class="tag tag-team">团队</span></td></tr>
+        <tr><td class="time">下午</td><td>真人CS战术对抗（红蓝对抗赛）</td><td><span class="tag tag-team">团队</span></td></tr>
+        <tr><td class="time">晚上</td><td>团队分享会、感恩教育课堂</td><td><span class="tag tag-life">生活</span></td></tr>
+
+        <tr><td rowspan="3"><strong>第5天</strong><br>体能挑战</td><td class="time">上午</td><td>晨跑3公里、攀岩训练、绳降技巧</td><td><span class="tag tag-train">军事</span></td></tr>
+        <tr><td class="time">下午</td><td>5公里负重拉练、综合体能竞赛</td><td><span class="tag tag-train">军事</span></td></tr>
+        <tr><td class="time">晚上</td><td>家书书写、心得体会交流</td><td><span class="tag tag-life">生活</span></td></tr>
+
+        <tr><td rowspan="3"><strong>第6天</strong><br>综合演练</td><td class="time">上午</td><td>综合战术演练、应急疏散演习</td><td><span class="tag tag-train">军事</span></td></tr>
+        <tr><td class="time">下午</td><td>汇报表演彩排、队列会操准备</td><td><span class="tag tag-train">军事</span></td></tr>
+        <tr><td class="time">晚上</td><td>篝火晚会、才艺展示、结营感言</td><td><span class="tag tag-life">生活</span></td></tr>
+
+        <tr><td rowspan="2"><strong>第7天</strong><br>结营汇报</td><td class="time">上午</td><td>结营汇报表演、军体拳展示、队列会操、颁发证书奖章</td><td><span class="tag tag-train">军事</span></td></tr>
+        <tr><td class="time">下午</td><td>亲子互动、感恩环节、合影留念、安全返程</td><td><span class="tag tag-life">生活</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <!-- 移动端卡片 -->
+    <div class="schedule-cards" id="scheduleCards"></div>
+  </div>
+</section>
+
+<!-- ==================== 教官风采 ==================== -->
+<section class="section section-light" id="instructors">
+  <div class="section-inner">
+    <div class="section-title">
+      <h2>教官风采</h2>
+      <div class="divider"><span class="line"></span><span class="star">★</span><span class="line"></span></div>
+      <p>专业教官团队，为成长保驾护航</p>
+    </div>
+    <div class="instructors-grid">
+      <div class="instructor-card">
+        <div class="avatar">🎖️</div>
+        <div class="info">
+          <h3>李志强</h3>
+          <div class="rank">总教官 · 退伍特种兵</div>
+          <p>原某特种部队服役12年，多次执行重大任务，拥有丰富的军事训练和青少年教育经验。</p>
+        </div>
+      </div>
+      <div class="instructor-card">
+        <div class="avatar">🏅</div>
+        <div class="info">
+          <h3>王建国</h3>
+          <div class="rank">军事教官 · 退伍陆军士官</div>
+          <p>原陆军某部班长，服役8年，擅长队列训练、战术教学，带过3000+夏令营学员。</p>
+        </div>
+      </div>
+      <div class="instructor-card">
+        <div class="avatar">⛑️</div>
+        <div class="info">
+          <h3>张丽华</h3>
+          <div class="rank">生活老师 · 国家二级心理咨询师</div>
+          <p>心理学硕士，从事青少年心理辅导5年，负责学员心理疏导与感恩教育课程。</p>
+        </div>
+      </div>
+      <div class="instructor-card">
+        <div class="avatar">🏔️</div>
+        <div class="info">
+          <h3>刘伟</h3>
+          <div class="rank">体能教官 · 户外运动专家</div>
+          <p>中国登山协会认证教练，红十字会急救员，精通攀岩、野外生存等户外技能。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 报名须知 ==================== -->
+<section class="section section-dark" id="info">
+  <div class="section-inner">
+    <div class="section-title">
+      <h2>报名须知</h2>
+      <div class="divider"><span class="line"></span><span class="star">★</span><span class="line"></span></div>
+      <p>请仔细阅读以下信息后再提交报名</p>
+    </div>
+    <div class="info-grid">
+      <div class="info-item">
+        <div class="label">招生对象</div>
+        <div class="value">6-16岁青少年</div>
+      </div>
+      <div class="info-item">
+        <div class="label">营地地点</div>
+        <div class="value">长沙市望城区军事训练基地</div>
+      </div>
+      <div class="info-item">
+        <div class="label">营期时长</div>
+        <div class="value">7天6夜（全封闭式）</div>
+      </div>
+      <div class="info-item">
+        <div class="label">营期费用</div>
+        <div class="value">¥3,980/人</div>
+      </div>
+      <div class="info-item">
+        <div class="label">第一期</div>
+        <div class="value">7月12日 - 7月18日</div>
+      </div>
+      <div class="info-item">
+        <div class="label">第二期</div>
+        <div class="value">7月26日 - 8月1日</div>
+      </div>
+      <div class="info-item">
+        <div class="label">第三期</div>
+        <div class="value">8月9日 - 8月15日</div>
+      </div>
+      <div class="info-item">
+        <div class="label">第四期</div>
+        <div class="value">8月16日 - 8月22日</div>
+      </div>
+      <div class="info-item">
+        <div class="label">费用包含</div>
+        <div class="value">食宿、服装、保险、教材、活动</div>
+      </div>
+      <div class="info-item">
+        <div class="label">早鸟优惠</div>
+        <div class="value">6月30日前报名减300元</div>
+      </div>
+      <div class="info-item">
+        <div class="label">团报优惠</div>
+        <div class="value">3人及以上每人减200元</div>
+      </div>
+      <div class="info-item">
+        <div class="label">咨询电话</div>
+        <div class="value">0731-8888-6666</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 报名表单 ==================== -->
+<section class="section" id="register">
+  <div class="section-inner">
+    <div class="section-title">
+      <h2 style="color:var(--green-dark)">在线报名</h2>
+      <div class="divider"><span class="line"></span><span class="star">★</span><span class="line"></span></div>
+      <p>填写以下信息，我们将在24小时内与您联系确认</p>
+    </div>
+    <div class="form-wrapper">
+      <h3>📋 学员报名信息</h3>
+      <form id="registrationForm" novalidate>
+        <!-- 学员姓名 & 性别 -->
+        <div class="form-row">
+          <div class="form-group">
+            <label>学员姓名 <span class="required">*</span></label>
+            <input type="text" class="form-control" id="name" placeholder="请输入学员姓名" maxlength="20" required>
+            <div class="form-error" id="nameError"></div>
+          </div>
+          <div class="form-group">
+            <label>性别 <span class="required">*</span></label>
+            <select class="form-control" id="gender" required>
+              <option value="">请选择性别</option>
+              <option value="男">男</option>
+              <option value="女">女</option>
+            </select>
+            <div class="form-error" id="genderError"></div>
+          </div>
+        </div>
+
+        <!-- 年龄 & 身份证号 -->
+        <div class="form-row">
+          <div class="form-group">
+            <label>年龄 <span class="required">*</span></label>
+            <input type="number" class="form-control" id="age" placeholder="请输入年龄（6-18）" min="6" max="18" required>
+            <div class="form-error" id="ageError"></div>
+          </div>
+          <div class="form-group">
+            <label>身份证号码 <span class="required">*</span></label>
+            <input type="text" class="form-control" id="idCard" placeholder="用于购买保险" maxlength="18" required>
+            <div class="form-error" id="idCardError"></div>
+          </div>
+        </div>
+
+        <!-- 联系电话 & 监护人姓名 -->
+        <div class="form-row">
+          <div class="form-group">
+            <label>联系电话 <span class="required">*</span></label>
+            <input type="tel" class="form-control" id="phone" placeholder="请输入手机号码" maxlength="11" required>
+            <div class="form-error" id="phoneError"></div>
+          </div>
+          <div class="form-group">
+            <label>监护人姓名 <span class="required">*</span></label>
+            <input type="text" class="form-control" id="parentName" placeholder="请输入监护人姓名" maxlength="20" required>
+            <div class="form-error" id="parentNameError"></div>
+          </div>
+        </div>
+
+        <!-- 监护人电话 & 营期选择 -->
+        <div class="form-row">
+          <div class="form-group">
+            <label>监护人电话 <span class="required">*</span></label>
+            <input type="tel" class="form-control" id="parentPhone" placeholder="紧急情况联系用" maxlength="11" required>
+            <div class="form-error" id="parentPhoneError"></div>
+          </div>
+          <div class="form-group">
+            <label>选择营期 <span class="required">*</span></label>
+            <select class="form-control" id="campSession" required>
+              <option value="">请选择营期</option>
+              <option value="第一期（7.12-7.18）">第一期（7月12日 - 7月18日）</option>
+              <option value="第二期（7.26-8.1）">第二期（7月26日 - 8月1日）</option>
+              <option value="第三期（8.9-8.15）">第三期（8月9日 - 8月15日）</option>
+              <option value="第四期（8.16-8.22）">第四期（8月16日 - 8月22日）</option>
+            </select>
+            <div class="form-error" id="campSessionError"></div>
+          </div>
+        </div>
+
+        <!-- 健康状况 -->
+        <div class="form-group">
+          <label>健康状况 / 特殊需求</label>
+          <textarea class="form-control" id="health" placeholder="如有过敏史、特殊疾病、饮食禁忌等请如实填写（选填）" maxlength="300"></textarea>
+          <div class="form-error" id="healthError"></div>
+        </div>
+
+        <!-- 备注 -->
+        <div class="form-group">
+          <label>备注</label>
+          <textarea class="form-control" id="remarks" placeholder="其他需要告知我们的事项（选填）" maxlength="300"></textarea>
+        </div>
+
+        <button type="submit" class="form-submit" id="submitBtn">🎖️ 提交报名</button>
+        <p class="form-note">提交即表示您同意我们收集以上信息用于夏令营报名服务</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 常见问题 ==================== -->
+<section class="section section-light" id="faq">
+  <div class="section-inner">
+    <div class="section-title">
+      <h2>常见问题</h2>
+      <div class="divider"><span class="line"></span><span class="star">★</span><span class="line"></span></div>
+      <p>您关心的问题，这里都有答案</p>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          <span>孩子没离开过家，能适应吗？</span>
+          <span class="arrow">▼</span>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">
+          大多数孩子都是第一次参加夏令营。我们有专业的生活老师24小时陪护，前2天是适应期，教官和老师会特别关注每个孩子的情绪状态。根据往年经验，95%的孩子在第3天就能完全融入集体生活。
+        </div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          <span>营地安全如何保障？</span>
+          <span class="arrow">▼</span>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">
+          营地实行全封闭式管理，24小时监控和安保巡逻。每8名学员配备1名教官或生活老师。所有户外活动均有专业教练带队，配备急救药品和设备，距离最近医院仅15分钟车程。我们为每位学员购买综合意外险。
+        </div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          <span>伙食和住宿条件怎么样？</span>
+          <span class="arrow">▼</span>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">
+          住宿为标准8人间营房，配备空调、独立卫浴、热水器。餐饮由专业营养师配餐，三餐两点（早中晚餐+上午水果+下午点心），保证营养均衡。如有特殊饮食需求（清真/过敏等），请在报名时备注。
+        </div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          <span>家长如何了解孩子在营地的情况？</span>
+          <span class="arrow">▼</span>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">
+          我们建立家长微信群，每天定时发布活动照片和视频。每晚8:00-8:30为亲子通话时间（使用生活老师手机）。结营当天邀请家长到场观看汇报表演，见证孩子的成长变化。
+        </div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          <span>报名后可以退款吗？</span>
+          <span class="arrow">▼</span>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">
+          开营前15天以上取消，全额退款；开营前7-15天取消，退80%；开营前3-7天取消，退50%；开营前3天内取消不予退款。如因身体原因无法参加（需提供医院证明），可申请延期或全额退款。
+        </div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          <span>需要自备哪些物品？</span>
+          <span class="arrow">▼</span>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">
+          营地统一发放2套迷彩训练服。家长需准备：换洗衣物（内衣裤3-4套）、运动鞋2双、拖鞋1双、洗漱用品、防晒霜、防蚊液、水杯。禁止携带手机、平板等电子产品（如有需要，入营后由生活老师统一保管）。
+        </div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 页脚 ==================== -->
+<footer class="footer">
+  <p><strong>长沙砺剑军事夏令营</strong></p>
+  <p>地址：湖南省长沙市望城区军事训练基地 &nbsp;|&nbsp; 电话：0731-8888-6666</p>
+  <p>微信：lijian2026 &nbsp;|&nbsp; 邮箱：lijian@example.com</p>
+  <p style="margin-top:8px;font-size:.78rem;">© 2026 长沙砺剑军事夏令营 版权所有</p>
+</footer>
+
+<!-- ==================== 成功弹窗 ==================== -->
+<div class="modal-overlay" id="successModal">
+  <div class="modal">
+    <div class="check">✓</div>
+    <h3>报名提交成功！</h3>
+    <p>感谢您的信任与选择！<br>我们将在 <strong>24小时内</strong> 与您联系确认报名信息，<br>请保持手机畅通。</p>
+    <p style="font-size:.82rem;color:#999">如有疑问请拨打：0731-8888-6666</p>
+    <button class="btn" onclick="closeModal()">我知道了</button>
+  </div>
+</div>
+
+<!-- 返回顶部 -->
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="返回顶部">↑</button>
+
+<!-- ==================== JavaScript ==================== -->
+<script>
+// ========== 移动端日程卡片数据 ==========
+(function(){
+  if(window.innerWidth>768)return;
+  var days=[
+    {day:'第1天 · 开营启航',items:[
+      {time:'上午',title:'入营报到、物资发放、开营仪式',desc:'宿舍分配、营地初探',tag:'入营'},
+      {time:'下午',title:'破冰团建、营地参观、军姿训练',desc:'安全纪律教育',tag:'团队'},
+      {time:'晚上',title:'迎新晚会、自我介绍、内务教学',desc:'营规学习',tag:'生活'}
+    ]},
+    {day:'第2天 · 基础训练',items:[
+      {time:'上午',title:'晨跑1公里、队列训练、军体拳',desc:'立正/稍息/跨立',tag:'军事'},
+      {time:'下午',title:'战术基础动作、400米障碍体验',desc:'卧倒/匍匐/跃进',tag:'军事'},
+      {time:'晚上',title:'军事题材电影观赏',desc:'观后感分享',tag:'生活'}
+    ]},
+    {day:'第3天 · 野外生存',items:[
+      {time:'上午',title:'野外方向辨别、帐篷搭建实操',desc:'指北针/地图使用',tag:'野外'},
+      {time:'下午',title:'野外取火、净水处理、SOS求救',desc:'简易担架制作',tag:'野外'},
+      {time:'晚上',title:'星空观测、野外露营体验',desc:'营地内安全区域',tag:'野外'}
+    ]},
+    {day:'第4天 · 团队拓展',items:[
+      {time:'上午',title:'信任背摔、穿越电网、团队接力',desc:'团队协作挑战',tag:'团队'},
+      {time:'下午',title:'真人CS战术对抗',desc:'红蓝对抗赛',tag:'团队'},
+      {time:'晚上',title:'团队分享会、感恩教育课堂',desc:'感恩励志',tag:'生活'}
+    ]},
+    {day:'第5天 · 体能挑战',items:[
+      {time:'上午',title:'晨跑3公里、攀岩训练、绳降',desc:'体能突破',tag:'军事'},
+      {time:'下午',title:'5公里负重拉练、综合体能竞赛',desc:'挑战极限',tag:'军事'},
+      {time:'晚上',title:'家书书写、心得交流',desc:'给父母的一封信',tag:'生活'}
+    ]},
+    {day:'第6天 · 综合演练',items:[
+      {time:'上午',title:'综合战术演练、应急疏散演习',desc:'实战模拟',tag:'军事'},
+      {time:'下午',title:'汇报表演彩排、队列会操准备',desc:'成果打磨',tag:'军事'},
+      {time:'晚上',title:'篝火晚会、才艺展示、结营感言',desc:'难忘之夜',tag:'生活'}
+    ]},
+    {day:'第7天 · 结营汇报',items:[
+      {time:'上午',title:'结营汇报表演、颁发证书奖章',desc:'军体拳展示/队列会操',tag:'军事'},
+      {time:'下午',title:'亲子互动、感恩环节、安全返程',desc:'合影留念',tag:'生活'}
+    ]}
+  ];
+  var html='';
+  days.forEach(function(d){
+    html+='<div class="schedule-card"><strong style="color:var(--green-dark)">'+d.day+'</strong>';
+    d.items.forEach(function(i){
+      html+='<div style="margin-top:8px"><span class="s-time">'+i.time+'</span> <span style="font-size:.75rem;background:#e8f5e9;color:#2e7d32;padding:1px 8px;border-radius:10px;float:right">'+i.tag+'</span></div>';
+      html+='<div class="s-title">'+i.title+'</div><div class="s-desc">'+i.desc+'</div>';
+    });
+    html+='</div>';
+  });
+  document.getElementById('scheduleCards').innerHTML=html;
+})();
+
+// ========== 导航切换(移动端) ==========
+document.getElementById('navToggle').addEventListener('click',function(){
+  document.getElementById('navLinks').classList.toggle('open');
+  var icon=this;
+  icon.textContent=icon.textContent==='☰'?'✕':'☰';
+});
+
+// 点击导航链接后关闭菜单
+document.querySelectorAll('.nav-links a').forEach(function(link){
+  link.addEventListener('click',function(){
+    document.getElementById('navLinks').classList.remove('open');
+    document.getElementById('navToggle').textContent='☰';
+  });
+});
+
+// ========== 返回顶部按钮 ==========
+var backTop=document.getElementById('backTop');
+window.addEventListener('scroll',function(){
+  backTop.classList.toggle('visible',window.scrollY>400);
+});
+
+// ========== 表单验证 ==========
+function showError(id,msg){
+  var el=document.getElementById(id+'Error');
+  var input=document.getElementById(id);
+  if(el){el.textContent=msg;el.classList.toggle('show',!!msg)}
+  if(input){input.classList.toggle('error',!!msg)}
+}
+
+function clearErrors(){
+  ['name','gender','age','idCard','phone','parentName','parentPhone','campSession'].forEach(showError);
+}
+
+var isSubmitting=false;
+
+document.getElementById('registrationForm').addEventListener('submit',function(e){
+  e.preventDefault();
+  if(isSubmitting)return;
+  clearErrors();
+
+  var name=document.getElementById('name').value.trim();
+  var gender=document.getElementById('gender').value;
+  var age=parseInt(document.getElementById('age').value);
+  var idCard=document.getElementById('idCard').value.trim();
+  var phone=document.getElementById('phone').value.trim();
+  var parentName=document.getElementById('parentName').value.trim();
+  var parentPhone=document.getElementById('parentPhone').value.trim();
+  var campSession=document.getElementById('campSession').value;
+  var health=document.getElementById('health').value.trim();
+  var remarks=document.getElementById('remarks').value.trim();
+
+  var valid=true;
+
+  if(!name||name.length<2){showError('name','请填写正确的姓名（至少2个字）');valid=false}
+  if(!gender){showError('gender','请选择性别');valid=false}
+  if(!age||age<6||age>18){showError('age','年龄需在6-18岁之间');valid=false}
+  if(!idCard||!/^[1-9]\d{5}(19|20)\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])\d{3}[\dXx]$/.test(idCard)){showError('idCard','请填写正确的18位身份证号码');valid=false}
+  if(!phone||!/^1[3-9]\d{9}$/.test(phone)){showError('phone','请填写正确的11位手机号码');valid=false}
+  if(!parentName||parentName.length<2){showError('parentName','请填写正确的监护人姓名');valid=false}
+  if(!parentPhone||!/^1[3-9]\d{9}$/.test(parentPhone)){showError('parentPhone','请填写正确的监护人电话');valid=false}
+  if(!campSession){showError('campSession','请选择营期');valid=false}
+
+  if(!valid)return;
+
+  // 提交
+  isSubmitting=true;
+  var btn=document.getElementById('submitBtn');
+  btn.disabled=true;
+  btn.textContent='提交中...';
+
+  fetch('/api/register',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({name,gender,age,idCard,phone,parentName,parentPhone,health,campSession,remarks})
+  })
+  .then(function(r){return r.json()})
+  .then(function(data){
+    if(data.success){
+      document.getElementById('successModal').classList.add('active');
+      document.getElementById('registrationForm').reset();
+    }else{
+      alert('报名失败：'+(data.errors||[]).join('\n'));
+    }
+  })
+  .catch(function(){
+    alert('网络错误，请稍后重试。如持续失败请拨打电话报名：0731-8888-6666');
+  })
+  .finally(function(){
+    isSubmitting=false;
+    btn.disabled=false;
+    btn.textContent='🎖️ 提交报名';
+  });
+});
+
+// ========== 关闭弹窗 ==========
+function closeModal(){
+  document.getElementById('successModal').classList.remove('active');
+}
+document.getElementById('successModal').addEventListener('click',function(e){
+  if(e.target===this)closeModal();
+});
+
+// ========== 实时清除错误状态 ==========
+['name','age','idCard','phone','parentName','parentPhone'].forEach(function(id){
+  document.getElementById(id).addEventListener('input',function(){
+    showError(id,'');
+  });
+});
+['gender','campSession'].forEach(function(id){
+  document.getElementById(id).addEventListener('change',function(){
+    showError(id,'');
+  });
+});
+</script>
+</body>
+</html>
