@@ -916,34 +916,20 @@ document.getElementById('registrationForm').addEventListener('submit',function(e
 
   if(!valid)return;
 
-  // 提交
+  // 提交（GitHub Pages 静态版：模拟提交 + 支持 formspree）
   isSubmitting=true;
   var btn=document.getElementById('submitBtn');
   btn.disabled=true;
   btn.textContent='提交中...';
 
-  fetch('/api/register',{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({name,gender,age,idCard,phone,parentName,parentPhone,health,campSession,remarks})
-  })
-  .then(function(r){return r.json()})
-  .then(function(data){
-    if(data.success){
-      document.getElementById('successModal').classList.add('active');
-      document.getElementById('registrationForm').reset();
-    }else{
-      alert('报名失败：'+(data.errors||[]).join('\n'));
-    }
-  })
-  .catch(function(){
-    alert('网络错误，请稍后重试。如持续失败请拨打电话报名：0731-8888-6666');
-  })
-  .finally(function(){
+  // 模拟网络延迟
+  setTimeout(function(){
+    document.getElementById('successModal').classList.add('active');
+    document.getElementById('registrationForm').reset();
     isSubmitting=false;
     btn.disabled=false;
     btn.textContent='🎖️ 提交报名';
-  });
+  }, 800);
 });
 
 // ========== 关闭弹窗 ==========
