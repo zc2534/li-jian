@@ -183,7 +183,7 @@ body{
 .schedule-table th{
   padding:16px;font-size:.95rem;letter-spacing:1px;font-weight:700;
 }
-.schedule-table td{padding:14px 16px;font-size:.9rem;border-bottom:1px solid #eee}
+.schedule-table td{padding:14px 16px;font-size:.9rem;border-bottom:1px solid #eee;color:#000}
 .schedule-table tbody tr:hover{background:#f9f7f2}
 .schedule-table .time{font-weight:700;color:var(--green);white-space:nowrap}
 .schedule-table .tag{
@@ -350,11 +350,11 @@ textarea.form-control{resize:vertical;min-height:90px}
   .schedule-cards{display:flex;flex-direction:column;gap:12px}
   .schedule-card{
     background:var(--white);border-radius:var(--radius-sm);padding:16px;
-    box-shadow:0 2px 8px rgba(0,0,0,.06);border-left:4px solid var(--green);
+    box-shadow:0 2px 8px rgba(0,0,0,.06);border-left:4px solid var(--green);color:#000;
   }
   .schedule-card .s-time{font-weight:700;color:var(--green);font-size:.9rem}
-  .schedule-card .s-title{font-weight:700;margin:4px 0;font-size:.95rem}
-  .schedule-card .s-desc{font-size:.82rem;color:var(--text-light)}
+  .schedule-card .s-title{font-weight:700;margin:4px 0;font-size:.95rem;color:#000}
+  .schedule-card .s-desc{font-size:.82rem;color:#555}
 
   .form-row{grid-template-columns:1fr}
   .form-wrapper{padding:24px 18px}
@@ -405,7 +405,7 @@ textarea.form-control{resize:vertical;min-height:90px}
       <a href="#highlights" class="btn btn-outline">了解更多</a>
     </div>
     <div class="hero-stats">
-      <div class="hero-stat"><div class="num">8年</div><div class="label">办学经验</div></div>
+      <div class="hero-stat"><div class="num">12年</div><div class="label">办学经验</div></div>
       <div class="hero-stat"><div class="num">5000+</div><div class="label">结业学员</div></div>
       <div class="hero-stat"><div class="num">98%</div><div class="label">家长好评</div></div>
       <div class="hero-stat"><div class="num">7天6夜</div><div class="label">精品课程</div></div>
@@ -519,7 +519,7 @@ textarea.form-control{resize:vertical;min-height:90px}
       <div class="instructor-card">
         <div class="avatar">🎖️</div>
         <div class="info">
-          <h3>李志强</h3>
+          <h3>周班长</h3>
           <div class="rank">总教官 · 退伍特种兵</div>
           <p>原某特种部队服役12年，多次执行重大任务，拥有丰富的军事训练和青少年教育经验。</p>
         </div>
@@ -527,7 +527,7 @@ textarea.form-control{resize:vertical;min-height:90px}
       <div class="instructor-card">
         <div class="avatar">🏅</div>
         <div class="info">
-          <h3>王建国</h3>
+          <h3>刘班长</h3>
           <div class="rank">军事教官 · 退伍陆军士官</div>
           <p>原陆军某部班长，服役8年，擅长队列训练、战术教学，带过3000+夏令营学员。</p>
         </div>
@@ -535,17 +535,17 @@ textarea.form-control{resize:vertical;min-height:90px}
       <div class="instructor-card">
         <div class="avatar">⛑️</div>
         <div class="info">
-          <h3>张丽华</h3>
-          <div class="rank">生活老师 · 国家二级心理咨询师</div>
-          <p>心理学硕士，从事青少年心理辅导5年，负责学员心理疏导与感恩教育课程。</p>
+          <h3>冯老师&吴班长</h3>
+          <div class="rank">生活老师 · 心理咨询师</div>
+          <p>心理学教师，从事青少年心理辅导5年，负责学员心理疏导与感恩教育课程。</p>
         </div>
       </div>
       <div class="instructor-card">
         <div class="avatar">🏔️</div>
         <div class="info">
-          <h3>刘伟</h3>
-          <div class="rank">体能教官 · 户外运动专家</div>
-          <p>中国登山协会认证教练，红十字会急救员，精通攀岩、野外生存等户外技能。</p>
+          <h3>梁班长</h3>
+          <div class="rank">体能教官 · 退伍陆军士官</div>
+          <p>擅长擒敌拳,格斗术,刺杀操等各种格斗技能。</p>
         </div>
       </div>
     </div>
@@ -567,31 +567,31 @@ textarea.form-control{resize:vertical;min-height:90px}
       </div>
       <div class="info-item">
         <div class="label">营地地点</div>
-        <div class="value">长沙市望城区军事训练基地</div>
+        <div class="value">长沙启点砺剑(春花山)训练基地</div>
       </div>
       <div class="info-item">
         <div class="label">营期时长</div>
-        <div class="value">7天6夜（全封闭式）</div>
+        <div class="value">7天/14天/21天/28天（全封闭式）</div>
       </div>
       <div class="info-item">
         <div class="label">营期费用</div>
-        <div class="value">¥3,980/人</div>
+        <div class="value">¥2,980/¥4980/¥6980/¥8980人</div>
       </div>
       <div class="info-item">
         <div class="label">第一期</div>
-        <div class="value">7月12日 - 7月18日</div>
+        <div class="value">7月10日 - 7月16日</div>
       </div>
       <div class="info-item">
         <div class="label">第二期</div>
-        <div class="value">7月26日 - 8月1日</div>
+        <div class="value">7月24日 - 7月30日</div>
       </div>
       <div class="info-item">
         <div class="label">第三期</div>
-        <div class="value">8月9日 - 8月15日</div>
+        <div class="value">8月7日 - 8月13日</div>
       </div>
       <div class="info-item">
         <div class="label">第四期</div>
-        <div class="value">8月16日 - 8月22日</div>
+        <div class="value">8月21日 - 8月27日</div>
       </div>
       <div class="info-item">
         <div class="label">费用包含</div>
@@ -607,7 +607,7 @@ textarea.form-control{resize:vertical;min-height:90px}
       </div>
       <div class="info-item">
         <div class="label">咨询电话</div>
-        <div class="value">0731-8888-6666</div>
+        <div class="value">**************</div>
       </div>
     </div>
   </div>
@@ -725,7 +725,7 @@ textarea.form-control{resize:vertical;min-height:90px}
           <span class="arrow">▼</span>
         </div>
         <div class="faq-a"><div class="faq-a-inner">
-          大多数孩子都是第一次参加夏令营。我们有专业的生活老师24小时陪护，前2天是适应期，教官和老师会特别关注每个孩子的情绪状态。根据往年经验，95%的孩子在第3天就能完全融入集体生活。
+          大多数孩子都是第一次参加夏令营。我们有专业的教官24小时陪护，前2天是适应期，教官会特别关注每个孩子的情绪状态。根据往年经验，95%的孩子在第3天就能完全融入集体生活。
         </div></div>
       </div>
       <div class="faq-item">
@@ -734,7 +734,7 @@ textarea.form-control{resize:vertical;min-height:90px}
           <span class="arrow">▼</span>
         </div>
         <div class="faq-a"><div class="faq-a-inner">
-          营地实行全封闭式管理，24小时监控和安保巡逻。每8名学员配备1名教官或生活老师。所有户外活动均有专业教练带队，配备急救药品和设备，距离最近医院仅15分钟车程。我们为每位学员购买综合意外险。
+          营地实行全封闭式管理，24小时监控和安保巡逻。每8名学员配备1名教官。所有户外活动均有专业教官带队，配备急救药品和设备，距离最近医院仅15分钟车程。我们为每位学员购买综合意外险。
         </div></div>
       </div>
       <div class="faq-item">
@@ -752,7 +752,7 @@ textarea.form-control{resize:vertical;min-height:90px}
           <span class="arrow">▼</span>
         </div>
         <div class="faq-a"><div class="faq-a-inner">
-          我们建立家长微信群，每天定时发布活动照片和视频。每晚8:00-8:30为亲子通话时间（使用生活老师手机）。结营当天邀请家长到场观看汇报表演，见证孩子的成长变化。
+          我们建立家长微信群，每天不定时发布活动照片和视频,家长可以通过家长群查看自己孩子情况。结营当天邀请家长到场观看汇报表演，见证孩子的成长变化。
         </div></div>
       </div>
       <div class="faq-item">
@@ -770,7 +770,7 @@ textarea.form-control{resize:vertical;min-height:90px}
           <span class="arrow">▼</span>
         </div>
         <div class="faq-a"><div class="faq-a-inner">
-          营地统一发放2套迷彩训练服。家长需准备：换洗衣物（内衣裤3-4套）、运动鞋2双、拖鞋1双、洗漱用品、防晒霜、防蚊液、水杯。禁止携带手机、平板等电子产品（如有需要，入营后由生活老师统一保管）。
+          营地统一发放2套迷彩训练服。家长需准备：换洗衣物（内衣裤3-4套）、运动鞋1双、拖鞋1双、洗漱用品、防晒霜、防蚊液、水杯。禁止携带手机、平板等电子产品（如有需要，入营后由生活老师统一保管）。
         </div></div>
       </div>
     </div>
@@ -780,8 +780,8 @@ textarea.form-control{resize:vertical;min-height:90px}
 <!-- ==================== 页脚 ==================== -->
 <footer class="footer">
   <p><strong>长沙砺剑军事夏令营</strong></p>
-  <p>地址：湖南省长沙市望城区军事训练基地 &nbsp;|&nbsp; 电话：0731-8888-6666</p>
-  <p>微信：lijian2026 &nbsp;|&nbsp; 邮箱：lijian@example.com</p>
+  <p>地址：湖南省长沙市春华山国防教育基地 &nbsp;|&nbsp; 电话：***********</p>
+  <p>微信：********** &nbsp;|&nbsp; 邮箱：**************</p>
   <p style="margin-top:8px;font-size:.78rem;">© 2026 长沙砺剑军事夏令营 版权所有</p>
 </footer>
 
@@ -791,7 +791,7 @@ textarea.form-control{resize:vertical;min-height:90px}
     <div class="check">✓</div>
     <h3>报名提交成功！</h3>
     <p>感谢您的信任与选择！<br>我们将在 <strong>24小时内</strong> 与您联系确认报名信息，<br>请保持手机畅通。</p>
-    <p style="font-size:.82rem;color:#999">如有疑问请拨打：0731-8888-6666</p>
+    <p style="font-size:.82rem;color:#999">如有疑问请拨打：***********</p>
     <button class="btn" onclick="closeModal()">我知道了</button>
   </div>
 </div>
