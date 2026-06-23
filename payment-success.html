@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>缴费成功 - 长沙砺剑军事夏令营</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --green-dark:#1a3a0a;
+  --green:#2d5016;
+  --green-light:#3a6b1e;
+  --khaki:#b8973e;
+  --khaki-light:#d4b872;
+  --red:#b71c1c;
+  --red-light:#e53935;
+  --bg-dark:#121212;
+  --bg-section:#f5f0e8;
+  --text:#222;
+  --text-light:#555;
+  --white:#fff;
+  --radius:12px;
+  --radius-sm:8px;
+}
+html{height:100%}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Helvetica Neue",sans-serif;
+  color:var(--text);
+  background:linear-gradient(135deg,#0d1f05 0%,#1a3a0a 30%,#2d5016 60%,#1a3a0a 100%);
+  min-height:100vh;
+  display:flex;align-items:center;justify-content:center;
+  line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+  padding:20px;
+}
+body::before{
+  content:'';position:fixed;inset:0;
+  background:
+    radial-gradient(ellipse at 20% 50%,rgba(180,150,60,.12) 0%,transparent 50%),
+    radial-gradient(ellipse at 80% 50%,rgba(180,150,60,.08) 0%,transparent 50%),
+    repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(255,255,255,.008) 8px,rgba(255,255,255,.008) 16px);
+  pointer-events:none;
+}
+.card{
+  position:relative;z-index:1;
+  background:var(--white);border-radius:var(--radius);
+  padding:48px 32px;text-align:center;
+  max-width:460px;width:100%;
+  box-shadow:0 8px 40px rgba(0,0,0,.3);
+  border-top:5px solid var(--green);
+  animation:cardIn .5s ease;
+}
+@keyframes cardIn{from{transform:translateY(30px);opacity:0}to{transform:translateY(0);opacity:1}}
+.check-circle{
+  width:100px;height:100px;border-radius:50%;
+  background:linear-gradient(135deg,#2e7d32,#4caf50);
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 24px;font-size:3rem;color:#fff;
+  box-shadow:0 6px 24px rgba(46,125,50,.4);
+  animation:pop .5s ease .2s both;
+}
+@keyframes pop{from{transform:scale(0)}to{transform:scale(1)}}
+.card h1{font-size:1.6rem;color:var(--green-dark);margin-bottom:8px;letter-spacing:1px}
+.card .subtitle{font-size:.92rem;color:var(--text-light);margin-bottom:24px}
+.info-box{
+  background:#f5f0e8;border-radius:var(--radius-sm);
+  padding:20px;text-align:left;margin-bottom:24px;
+  line-height:2;font-size:.9rem;
+}
+.info-box .row{display:flex;justify-content:space-between;border-bottom:1px dashed #ddd;padding:6px 0}
+.info-box .row:last-child{border-bottom:none}
+.info-box .label{color:var(--text-light)}
+.info-box .value{font-weight:700;color:var(--green-dark)}
+.reminder{
+  background:linear-gradient(135deg,#fff9e6,#fff3cd);
+  border:1px dashed var(--khaki);border-radius:var(--radius-sm);
+  padding:14px 18px;font-size:.85rem;color:#8b6914;
+  margin-bottom:20px;text-align:left;line-height:1.8;
+}
+.reminder strong{color:#d32f2f}
+.btn{
+  display:inline-block;padding:14px 36px;border-radius:50px;
+  font-size:1rem;font-weight:700;text-decoration:none;cursor:pointer;
+  border:none;transition:all .3s;letter-spacing:1px;
+  background:linear-gradient(135deg,var(--green),var(--green-light));
+  color:var(--white);box-shadow:0 6px 24px rgba(45,80,22,.4);
+}
+.btn:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(45,80,22,.6)}
+.footer-text{font-size:.78rem;color:#999;margin-top:20px}
+
+@media(max-width:480px){
+  .card{padding:32px 18px}
+  .check-circle{width:80px;height:80px;font-size:2.4rem}
+  .card h1{font-size:1.3rem}
+}
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="check-circle">✓</div>
+  <h1>缴费成功！</h1>
+  <p class="subtitle">恭喜，您的名额已锁定 🎖️</p>
+
+  <div class="info-box">
+    <div class="row"><span class="label">营地名称</span><span class="value">长沙砺剑军事夏令营</span></div>
+    <div class="row"><span class="label">营地地址</span><span class="value">春华山国防教育基地</span></div>
+    <div class="row"><span class="label">咨询电话</span><span class="value">18397642006</span></div>
+    <div class="row"><span class="label">微信</span><span class="value">Z15673229057</span></div>
+  </div>
+
+  <div class="reminder">
+    <strong>📌 温馨提示：</strong><br>
+    ① 我们将在<strong>24小时内</strong>电话与您确认报名信息，请保持手机畅通<br>
+    ② 开营前7天会建立<strong>家长微信群</strong>，发布入营须知和准备清单<br>
+    ③ 如有疑问请拨打 <strong>18397642006</strong>
+  </div>
+
+  <a href="index.html" class="btn">🎖️ 返回首页</a>
+  <p class="footer-text">© 2026 长沙砺剑军事夏令营</p>
+</div>
+
+</body>
+</html>

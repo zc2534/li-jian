@@ -858,7 +858,10 @@ textarea.form-control{resize:vertical;min-height:90px}
 
     <p style="font-size:.82rem;color:#e53935;margin:16px 0">⚠️ 缴费时请备注学员姓名，缴费后我们将在24小时内确认</p>
     <p style="font-size:.82rem;color:#999">如有疑问请拨打：18397642006</p>
-    <button class="btn" onclick="closeModal()" style="margin-top:12px">我知道了</button>
+    <div style="display:flex;gap:12px;justify-content:center;margin-top:12px;flex-wrap:wrap">
+      <a href="payment-success.html" class="btn" style="background:var(--green);color:var(--white)">✅ 已完成缴费</a>
+      <a href="payment-fail.html" class="btn" style="background:#999;color:var(--white)">❌ 取消支付</a>
+    </div>
   </div>
 </div>
 
