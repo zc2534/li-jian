@@ -991,17 +991,30 @@ document.getElementById('registrationForm').addEventListener('submit',function(e
 
   if(!valid)return;
 
-  // 提交（优先调用后端API，失败则静态模式）
+  // 保存报名数据到 localStorage（纯前端模式）
+  saveToLocal(name,gender,age,idCard,phone,parentName,parentPhone,health,campSession,remarks);
+
+  // 判断环境：GitHub Pages 直接弹窗，有后端则调 API
+  var isGitHubPages = window.location.hostname.indexOf('github.io') !== -1;
   isSubmitting=true;
   var btn=document.getElementById('submitBtn');
   btn.disabled=true;
   btn.textContent='提交中...';
 
-  // 尝试调用后端 API（Express 服务器环境），超时 5 秒后走静态模式
+  if (isGitHubPages) {
+    // GitHub Pages 无后端，直接弹缴费窗
+    showPayment(campSession);
+    isSubmitting=false;
+    btn.disabled=false;
+    btn.textContent='🎖️ 提交报名';
+    return;
+  }
+
+  // 有后端时尝试调用 API
   var done=false;
   var timer=setTimeout(function(){
     if(!done){done=true;staticSubmit();}
-  },5000);
+  },3000);
 
   fetch('/api/register',{
     method:'POST',
