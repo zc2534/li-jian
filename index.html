@@ -306,6 +306,12 @@ textarea.form-control{resize:vertical;min-height:90px}
 }
 .qr-img span{font-weight:700;color:#666}
 .qr-img small{font-size:.7rem}
+/* 收款码放大弹窗 */
+.qr-overlay{display:none;position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,.85);align-items:center;justify-content:center;cursor:pointer}
+.qr-overlay.active{display:flex}
+.qr-overlay img{max-width:90vw;max-height:90vh;border-radius:16px;box-shadow:0 8px 40px rgba(0,0,0,.5);animation:qrZoom .3s ease}
+@keyframes qrZoom{from{transform:scale(.5);opacity:0}to{transform:scale(1);opacity:1}}
+.qr-overlay .close-hint{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.6);font-size:.9rem;letter-spacing:1px}
 .bank-info{
   background:#f9f9f9;border-radius:10px;padding:16px;text-align:left;
   font-size:.85rem;line-height:2;margin-bottom:8px;
@@ -834,9 +840,9 @@ textarea.form-control{resize:vertical;min-height:90px}
     <div class="qr-section">
       <div class="qr-card">
         <div class="qr-img" id="wechatQr">
-          <img src="收款码.png" alt="微信收款码" style="width:160px;height:160px;border-radius:10px">
+          <img src="收款码.png" alt="微信收款码" style="width:160px;height:160px;border-radius:10px;cursor:pointer" onclick="openQr()" title="点击放大">
         </div>
-        <p>微信扫码支付</p>
+        <p>微信扫码支付 <span style="font-size:.72rem;color:#999">（点击二维码可放大）</span></p>
       </div>
       <!-- 支付宝收款码：准备好图片后取消下面注释
       <div class="qr-card">
@@ -1060,6 +1066,14 @@ document.getElementById('successModal').addEventListener('click',function(e){
     showError(id,'');
   });
 });
+// ========== 收款码放大 ==========
+function openQr(){document.getElementById("qrOverlay").classList.add("active")}
+function closeQr(){document.getElementById("qrOverlay").classList.remove("active")}
 </script>
+<!-- 收款码放大弹窗 -->
+<div class="qr-overlay" id="qrOverlay" onclick="closeQr()">
+  <img src="收款码.png" alt="微信收款码（放大）">
+  <span class="close-hint">点击任意处关闭</span>
+</div>
 </body>
 </html>
