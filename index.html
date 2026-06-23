@@ -1086,7 +1086,7 @@ function closeQr(){document.getElementById("qrOverlay").classList.remove("active
 // ===================== GitHub API 同步配置 =====================
 // ⚠️ 请替换为你的 GitHub Personal Access Token（classic，勾选 repo 权限）
 // 创建地址：https://github.com/settings/tokens
-var GITHUB_TOKEN = "YOUR_GITHUB_TOKEN_HERE";
+var GITHUB_TOKEN = "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";
 var GITHUB_API = "https://api.github.com/repos/zc2534/li-jian/contents/data/registrations.json";
 
 function utf8ToBase64(str) {
@@ -1120,7 +1120,7 @@ function saveToLocal(name,gender,age,idCard,phone,parentName,parentPhone,health,
 }
 
 function saveToGitHub(entry){
-  if (GITHUB_TOKEN === "YOUR_GITHUB_TOKEN_HERE") return; // Token 未配置
+  if (!GITHUB_TOKEN || GITHUB_TOKEN.indexOf("YOUR_") === 0) return;
   fetch(GITHUB_API, { headers: { "Authorization": "Bearer " + GITHUB_TOKEN } })
     .then(function(r){ if(!r.ok) throw new Error("GET failed"); return r.json(); })
     .then(function(file){

@@ -298,7 +298,7 @@ function doLogout(){
 
 
 // ===================== GitHub API 同步配置 =====================
-var GITHUB_TOKEN = "YOUR_GITHUB_TOKEN_HERE";
+var GITHUB_TOKEN = "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";
 var GITHUB_API = "https://api.github.com/repos/zc2534/li-jian/contents/data/registrations.json";
 var githubData = [];
 
@@ -315,7 +315,7 @@ function utf8ToBase64(str) {
 }
 
 function fetchFromGitHub(){
-  if (GITHUB_TOKEN === "YOUR_GITHUB_TOKEN_HERE") {
+  if (!GITHUB_TOKEN || GITHUB_TOKEN.indexOf("YOUR_") === 0) {
     console.log("GitHub Token 未配置，仅使用本地数据");
     return Promise.resolve(null);
   }
@@ -335,7 +335,7 @@ function fetchFromGitHub(){
 }
 
 function pushToGitHub(data){
-  if (GITHUB_TOKEN === "YOUR_GITHUB_TOKEN_HERE") {
+  if (!GITHUB_TOKEN || GITHUB_TOKEN.indexOf("YOUR_") === 0) {
     alert("请先在代码中配置 GitHub Token 后再使用云端同步功能。\n\n创建地址：https://github.com/settings/tokens");
     return Promise.reject("token not set");
   }
