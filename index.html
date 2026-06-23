@@ -639,7 +639,7 @@ textarea.form-control{resize:vertical;min-height:90px}
       </div>
       <div class="info-item">
         <div class="label">咨询电话</div>
-        <div class="value">**************</div>
+        <div class="value">18397642006</div>
       </div>
     </div>
   </div>
@@ -678,7 +678,7 @@ textarea.form-control{resize:vertical;min-height:90px}
         <div class="form-row">
           <div class="form-group">
             <label>年龄 <span class="required">*</span></label>
-            <input type="number" class="form-control" id="age" placeholder="请输入年龄（6-18）" min="6" max="18" required>
+            <input type="number" class="form-control" id="age" placeholder="请输入年龄（6-16）" min="6" max="16" required>
             <div class="form-error" id="ageError"></div>
           </div>
           <div class="form-group">
@@ -812,8 +812,8 @@ textarea.form-control{resize:vertical;min-height:90px}
 <!-- ==================== 页脚 ==================== -->
 <footer class="footer">
   <p><strong>长沙砺剑军事夏令营</strong></p>
-  <p>地址：湖南省长沙市春华山国防教育基地 &nbsp;|&nbsp; 电话：***********</p>
-  <p>微信：********** &nbsp;|&nbsp; 邮箱：**************</p>
+  <p>地址：湖南省长沙市春华山国防教育基地 &nbsp;|&nbsp; 电话：18397642006</p>
+  <p>微信：Z15673229057 &nbsp;|&nbsp; 邮箱：2534084227@qq.com</p>
   <p style="margin-top:8px;font-size:.78rem;">© 2026 长沙砺剑军事夏令营 版权所有</p>
 </footer>
 
@@ -827,7 +827,7 @@ textarea.form-control{resize:vertical;min-height:90px}
     <!-- 费用显示 -->
     <div class="fee-box" id="feeBox">
       <span class="fee-label">应缴费用</span>
-      <span class="fee-amount" id="feeAmount">¥3,980</span>
+      <span class="fee-amount" id="feeAmount">¥2,980</span>
     </div>
 
     <!-- 收款码 -->
@@ -838,13 +838,14 @@ textarea.form-control{resize:vertical;min-height:90px}
         </div>
         <p>微信扫码支付</p>
       </div>
+      <!-- 支付宝收款码：准备好图片后取消下面注释
       <div class="qr-card">
         <div class="qr-img" id="alipayQr">
-          <span>支付宝收款码</span>
-          <small>请替换为实际收款码图片</small>
+          <img src="alipay.png" alt="支付宝收款码" style="width:160px;height:160px;border-radius:10px">
         </div>
         <p>支付宝扫码支付</p>
       </div>
+      -->
     </div>
 
     <!-- 银行转账 -->
@@ -856,7 +857,7 @@ textarea.form-control{resize:vertical;min-height:90px}
     </div>
 
     <p style="font-size:.82rem;color:#e53935;margin:16px 0">⚠️ 缴费时请备注学员姓名，缴费后我们将在24小时内确认</p>
-    <p style="font-size:.82rem;color:#999">如有疑问请拨打：***********</p>
+    <p style="font-size:.82rem;color:#999">如有疑问请拨打：18397642006</p>
     <button class="btn" onclick="closeModal()" style="margin-top:12px">我知道了</button>
   </div>
 </div>
@@ -972,7 +973,7 @@ document.getElementById('registrationForm').addEventListener('submit',function(e
 
   if(!name||name.length<2){showError('name','请填写正确的姓名（至少2个字）');valid=false}
   if(!gender){showError('gender','请选择性别');valid=false}
-  if(!age||age<6||age>18){showError('age','年龄需在6-18岁之间');valid=false}
+  if(!age||age<6||age>16){showError('age','年龄需在6-16岁之间');valid=false}
   if(!idCard||!/^[1-9]\d{5}(19|20)\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])\d{3}[\dXx]$/.test(idCard)){showError('idCard','请填写正确的18位身份证号码');valid=false}
   if(!phone||!/^1[3-9]\d{9}$/.test(phone)){showError('phone','请填写正确的11位手机号码');valid=false}
   if(!parentName||parentName.length<2){showError('parentName','请填写正确的监护人姓名');valid=false}
@@ -1022,8 +1023,8 @@ document.getElementById('registrationForm').addEventListener('submit',function(e
   });
 
   function showPayment(campSession){
-    var prices={'7天':'¥3,980','14天':'¥6,980','21天':'¥9,980','28天':'¥12,980'};
-    var fee=prices[campSession]||'¥3,980';
+    var prices={'7天':'¥2,980','14天':'¥4,980','21天':'¥6,980','28天':'¥8,980'};
+    var fee=prices[campSession]||'¥2,980';
     document.getElementById('feeAmount').textContent=fee;
     document.getElementById('successModal').classList.add('active');
     document.getElementById('registrationForm').reset();

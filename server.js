@@ -11,10 +11,51 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname)));
 
+// 简单的频率限制：同一 IP 每分钟最多 5 次报名提交
+const rateLimitMap = new Map();
+const RATE_LIMIT_MAX = 5;      // 最大请求数
+const RATE_LIMIT_WINDOW = 60000; // 时间窗口（毫秒）
+
+app.use('/api/register', (req, res, next) => {
+  const ip = req.ip || req.socket.remoteAddress || 'unknown';
+  const now = Date.now();
+  const record = rateLimitMap.get(ip);
+
+  if (!record || now - record.windowStart > RATE_LIMIT_WINDOW) {
+    rateLimitMap.set(ip, { count: 1, windowStart: now });
+    return next();
+  }
+
+  record.count++;
+  if (record.count > RATE_LIMIT_MAX) {
+    return res.status(429).json({
+      success: false,
+      errors: ['提交过于频繁，请稍后再试（每分钟最多5次）']
+    });
+  }
+  next();
+});
+
+// 定期清理过期的限流记录（每5分钟）
+setInterval(() => {
+  const now = Date.now();
+  for (const [ip, record] of rateLimitMap) {
+    if (now - record.windowStart > RATE_LIMIT_WINDOW) {
+      rateLimitMap.delete(ip);
+    }
+  }
+}, 300000).unref();
+
 // Vercel 上用 /tmp，本地用 data/ 目录
+// ⚠️ 警告：Vercel serverless 的 /tmp 目录在实例间不共享且会被回收，
+// 报名数据可能丢失！生产环境请改用数据库（如 MongoDB Atlas 免费层、Vercel KV 等）
 const dataDir = IS_VERCEL ? '/tmp' : path.join(__dirname, 'data');
 if (!fs.existsSync(dataDir)) {
   fs.mkdirSync(dataDir, { recursive: true });
+}
+if (IS_VERCEL) {
+  console.warn('⚠️  当前运行在 Vercel 环境，报名数据存储在 /tmp 中，实例回收后数据将丢失！');
+  console.warn('⚠️  建议尽快迁移至持久化数据库：MongoDB Atlas（免费）或 Vercel KV。');
 }
 
 const dataFile = path.join(dataDir, 'registrations.json');
@@ -71,8 +112,8 @@ app.post('/api/register', (req, res) => {
   if (!gender) {
     errors.push('请选择性别');
   }
-  if (!age || age < 6 || age > 18) {
-    errors.push('年龄需在6-18岁之间');
+  if (!age || age < 6 || age > 16) {
+    errors.push('年龄需在6-16岁之间');
   }
   if (!idCard || !/^[1-9]\d{5}(19|20)\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])\d{3}[\dXx]$/.test(idCard)) {
     errors.push('请填写正确的身份证号码');
@@ -135,7 +176,7 @@ app.post('/api/register', (req, res) => {
 app.get('/api/registrations', (req, res) => {
   const { key } = req.query;
   // 简单的管理密钥验证
-  if (key !== 'lijian2026') {
+  if (key !== (process.env.ADMIN_KEY || 'qq2534084227')) {
     return res.status(403).json({ success: false, errors: ['无权访问'] });
   }
   const registrations = readRegistrations();
@@ -152,7 +193,7 @@ if (!IS_VERCEL) {
     console.log('  🎖️  长沙砺剑军事夏令营报名系统');
     console.log('═══════════════════════════════════════');
     console.log(`  本地访问: http://localhost:${PORT}`);
-    console.log(`  管理后台: http://localhost:${PORT}/api/registrations?key=lijian2026`);
+    console.log(`  管理后台: http://localhost:${PORT}/api/registrations?key=qq2534084227`);
     console.log('═══════════════════════════════════════');
   });
 }
