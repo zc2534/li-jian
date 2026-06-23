@@ -214,6 +214,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
       <div class="spacer"></div>
       <button class="btn-add" onclick="openAddForm()">＋ 手动录入</button>
       <button class="btn-export" onclick="exportCSV()">📥 导出 CSV</button>
+      <button class="btn-export" style="background:#1976d2;color:#fff" onclick="syncToCloud()">☁️ 云端同步</button>
       <button class="btn-clear" onclick="clearAll()">🗑 清空数据</button>
     </div>
 
@@ -295,22 +296,102 @@ function doLogout(){
   document.getElementById('passwordInput').value='';
 }
 
+
+// ===================== GitHub API 同步配置 =====================
+var GITHUB_TOKEN = "YOUR_GITHUB_TOKEN_HERE";
+var GITHUB_API = "https://api.github.com/repos/zc2534/li-jian/contents/data/registrations.json";
+var githubData = [];
+
+function base64ToUtf8(str) {
+  return decodeURIComponent(atob(str).split("").map(function(c) {
+    return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+  }).join(""));
+}
+
+function utf8ToBase64(str) {
+  return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function(m, p1) {
+    return String.fromCharCode("0x" + p1);
+  }));
+}
+
+function fetchFromGitHub(){
+  if (GITHUB_TOKEN === "YOUR_GITHUB_TOKEN_HERE") {
+    console.log("GitHub Token 未配置，仅使用本地数据");
+    return Promise.resolve(null);
+  }
+  return fetch(GITHUB_API, { headers: { "Authorization": "Bearer " + GITHUB_TOKEN } })
+    .then(function(r){
+      if(!r.ok) throw new Error("GitHub fetch failed: " + r.status);
+      return r.json();
+    })
+    .then(function(file){
+      githubData = JSON.parse(base64ToUtf8(file.content));
+      return githubData;
+    })
+    .catch(function(err){
+      console.log("GitHub 读取失败:", err.message);
+      return null;
+    });
+}
+
+function pushToGitHub(data){
+  if (GITHUB_TOKEN === "YOUR_GITHUB_TOKEN_HERE") {
+    alert("请先在代码中配置 GitHub Token 后再使用云端同步功能。\n\n创建地址：https://github.com/settings/tokens");
+    return Promise.reject("token not set");
+  }
+  // 先获取最新 SHA
+  return fetch(GITHUB_API, { headers: { "Authorization": "Bearer " + GITHUB_TOKEN } })
+    .then(function(r){ if(!r.ok) throw new Error("GET failed"); return r.json(); })
+    .then(function(file){
+      var newContent = utf8ToBase64(JSON.stringify(data, null, 2));
+      return fetch(GITHUB_API, {
+        method: "PUT",
+        headers: { "Authorization": "Bearer " + GITHUB_TOKEN, "Content-Type": "application/json" },
+        body: JSON.stringify({ message: "同步报名数据 " + new Date().toLocaleString(), content: newContent, sha: file.sha })
+      });
+    })
+    .then(function(r){ return r.json(); });
+}
+
 // ===================== 数据操作 =====================
 var allData=[];
 
 function loadData(){
-  try{
-    allData=JSON.parse(localStorage.getItem('lijian_registrations')||'[]');
-  }catch(e){allData=[]}
-  allData.sort(function(a,b){
-    return new Date(b.createdAt||0)-new Date(a.createdAt||0);
+  // 先从 GitHub 拉取云端数据，再合并本地
+  fetchFromGitHub().then(function(cloudData){
+    // 读取本地数据
+    var localData = [];
+    try{ localData = JSON.parse(localStorage.getItem('lijian_registrations')||'[]'); }catch(e){}
+
+    // 合并：云端 + 本地，按 id 去重
+    var seen = {};
+    var merged = [];
+    var cloudList = cloudData || [];
+    [cloudList, localData].forEach(function(arr){
+      arr.forEach(function(r){
+        var key = r.idCard + '_' + r.campSession;
+        if (!seen[key]) { seen[key] = true; merged.push(r); }
+      });
+    });
+
+    allData = merged.sort(function(a,b){
+      return new Date(b.createdAt||0) - new Date(a.createdAt||0);
+    });
+    updateStats();
+    renderTable();
+  }).catch(function(){
+    // GitHub 失败，降级到纯本地数据
+    try{ allData = JSON.parse(localStorage.getItem('lijian_registrations')||'[]'); }catch(e){allData=[]}
+    allData.sort(function(a,b){ return new Date(b.createdAt||0) - new Date(a.createdAt||0); });
+    updateStats();
+    renderTable();
   });
-  updateStats();
-  renderTable();
 }
 
 function saveData(){
   localStorage.setItem('lijian_registrations',JSON.stringify(allData));
+  // 后台尝试推送到 GitHub
+  pushToGitHub(allData).catch(function(){});
   loadData();
 }
 
@@ -318,6 +399,17 @@ function deleteItem(id){
   if(!confirm('确定删除这条报名记录吗？此操作不可恢复。'))return;
   allData=allData.filter(function(r){return r.id!==id});
   saveData();
+}
+
+
+function syncToCloud(){
+  if (allData.length === 0) { alert("暂无数据可同步"); return; }
+  if (!confirm("将把当前 " + allData.length + " 条报名数据同步到云端，继续？")) return;
+  pushToGitHub(allData).then(function(){
+    alert("✅ 云端同步成功！现在其他设备也能看到这些数据了。");
+  }).catch(function(err){
+    alert("同步失败：" + err.message + "\n\n请检查 GitHub Token 是否正确配置。");
+  });
 }
 
 function clearAll(){
