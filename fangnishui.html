@@ -427,6 +427,30 @@ body{
 .warning-box .warn-title{color:var(--red-light);font-weight:700;letter-spacing:1px}
 .warning-box .warn-text{color:rgba(255,255,255,.7);font-size:.85rem;margin-top:4px}
 
+/* ========== 报名流程 ========== */
+.flow-steps{
+  display:flex;justify-content:center;align-items:flex-start;
+  gap:0;flex-wrap:wrap;
+}
+.flow-step{
+  text-align:center;flex:1;min-width:160px;max-width:220px;
+  padding:0 12px;position:relative;
+}
+.flow-step::after{
+  content:'→';position:absolute;right:-8px;top:36px;
+  font-size:1.5rem;color:var(--cyan-light);font-weight:700;
+}
+.flow-step:last-child::after{display:none}
+.flow-step .step-num{
+  width:56px;height:56px;border-radius:50%;
+  background:linear-gradient(135deg,var(--blue),var(--cyan));
+  color:var(--white);display:flex;align-items:center;justify-content:center;
+  font-size:1.4rem;font-weight:900;margin:0 auto 12px;
+  box-shadow:0 4px 16px rgba(0,188,212,.3);
+}
+.flow-step h4{font-size:.95rem;font-weight:700;color:var(--white);margin-bottom:4px}
+.flow-step p{font-size:.8rem;color:rgba(255,255,255,.6);line-height:1.5}
+
 /* ========== 保障承诺 ========== */
 .guarantee-grid{
   display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
@@ -590,6 +614,9 @@ body{
 
   .hero{padding:90px 20px 60px;min-height:auto}
   .hero h1{font-size:1.7rem}
+  .flow-steps{flex-direction:column;align-items:center;gap:16px}
+  .flow-step::after{display:none}
+  .flow-step{max-width:100%}
   .hero-stats{gap:20px}
   .hero-stat .num{font-size:1.5rem}
 
@@ -964,6 +991,40 @@ body{
       <div class="warn-text">
         患有心脏病、哮喘、皮肤病、重大过敏、不适宜水上运动疾病者禁止报名。<br>
         如有特殊健康状况请在报名时如实告知，我们将进行评估后确认是否适合参营。
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 报名流程 ==================== -->
+<section class="section section-white" id="flow">
+  <div class="section-inner">
+    <div class="section-title">
+      <h2>报名流程</h2>
+      <div class="divider"><span class="line"></span><span class="star">★</span><span class="line"></span></div>
+      <p class="subtitle" style="color:#1a1a2e">四步完成报名，简单快捷</p>
+    </div>
+
+    <div class="flow-steps">
+      <div class="flow-step">
+        <div class="step-num">1</div>
+        <h4>扫码咨询</h4>
+        <p>扫描下方二维码<br>填写学员基础信息</p>
+      </div>
+      <div class="flow-step">
+        <div class="step-num">2</div>
+        <h4>快速对接</h4>
+        <p>招生老师快速回电<br>发送入营须知</p>
+      </div>
+      <div class="flow-step">
+        <div class="step-num">3</div>
+        <h4>锁定名额</h4>
+        <p>确认营期缴费<br>尾款开营前结清</p>
+      </div>
+      <div class="flow-step">
+        <div class="step-num">4</div>
+        <h4>集合入营</h4>
+        <p>统一集合出发<br>开启14天特训</p>
       </div>
     </div>
   </div>
