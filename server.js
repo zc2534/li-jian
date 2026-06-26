@@ -83,6 +83,11 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
+// 14天防溺水夏令营报名页面
+app.get('/fangnishui', (req, res) => {
+  res.sendFile(path.join(__dirname, 'fangnishui.html'));
+});
+
 // 后台管理页面
 app.get('/admin', (req, res) => {
   res.sendFile(path.join(__dirname, 'admin.html'));
