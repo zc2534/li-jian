@@ -82,14 +82,15 @@ body{
 .hero{
   min-height:100vh;display:flex;align-items:center;justify-content:center;
   text-align:center;position:relative;overflow:hidden;
-  background:rgba(5,13,24,.65);
+  background:linear-gradient(160deg,#050d18 0%,#0a1628 25%,#0d3b66 50%,#0a2538 75%,#050d18 100%);
   padding:100px 24px 80px;
 }
 .hero::before{
   content:'';position:absolute;inset:0;
   background:
     radial-gradient(ellipse at 30% 40%,rgba(0,188,212,.08) 0%,transparent 50%),
-    radial-gradient(ellipse at 70% 60%,rgba(26,107,175,.1) 0%,transparent 50%);
+    radial-gradient(ellipse at 70% 60%,rgba(26,107,175,.1) 0%,transparent 50%),
+    url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 5 L32 28 L55 30 L32 32 L30 55 L28 32 L5 30 L28 28Z' fill='rgba(255,255,255,.02)'/%3E%3C/svg%3E") repeat;
   pointer-events:none;
 }
 .hero::after{
@@ -165,7 +166,7 @@ body{
 .hero-stat .label{font-size:.8rem;color:rgba(255,255,255,.45);letter-spacing:2px;margin-top:2px}
 
 /* ========== 通用区块 ========== */
-.section{padding:80px 24px;position:relative;z-index:1}
+.section{padding:80px 24px}
 .section-white{background:var(--white)}
 .section-light{background:var(--bg-light)}
 .section-blue{background:linear-gradient(180deg,var(--navy-light),var(--navy))}
@@ -587,16 +588,6 @@ body{
 .footer strong{color:var(--gold-light)}
 .footer .footer-brand{font-size:1rem;color:rgba(255,255,255,.7)}
 
-/* ========== UnicornStudio 动态背景层 ========== */
-.unicorn-bg{
-  position:fixed;top:0;left:0;width:100vw;height:100vh;
-  z-index:0;pointer-events:none;
-}
-.unicorn-bg canvas{
-  position:absolute;top:0;left:0;
-  width:100%!important;height:100%!important;
-}
-
 /* ========== 返回顶部 ========== */
 .back-top{
   position:fixed;bottom:28px;right:28px;z-index:900;
@@ -657,11 +648,6 @@ body{
 </style>
 </head>
 <body>
-
-<!-- ==================== UnicornStudio 动态背景 ==================== -->
-<div class="unicorn-bg">
-  <div data-us-project="Yd0zG1EYVlYf5LUsC8PZ"></div>
-</div>
 
 <!-- ==================== 导航栏 ==================== -->
 <nav class="nav">
@@ -1327,24 +1313,6 @@ setTimeout(function(){
     }
   });
 }, 200);
-</script>
-
-<!-- ==================== UnicornStudio SDK ==================== -->
-<script>
-(function() {
-  if (!window.UnicornStudio) {
-    window.UnicornStudio = { isInitialized: false };
-    var s = document.createElement("script");
-    s.src = "https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v2.2.6/dist/unicornStudio.umd.js";
-    s.onload = function() {
-      if (!window.UnicornStudio.isInitialized) {
-        UnicornStudio.init();
-        window.UnicornStudio.isInitialized = true;
-      }
-    };
-    (document.head || document.body).appendChild(s);
-  }
-})();
 </script>
 
 </body>
