@@ -338,6 +338,31 @@ body{
 .camp-gallery .gallery-item .placeholder span{
   font-size:.85rem;margin-top:8px;letter-spacing:1px;
 }
+.camp-gallery .gallery-item img{
+  width:100%;height:100%;object-fit:cover;display:block;
+}
+.camp-gallery .gallery-item .gallery-label{
+  position:absolute;bottom:0;left:0;right:0;
+  background:linear-gradient(transparent,rgba(0,0,0,.7));
+  color:var(--white);padding:8px 12px;
+  font-size:.85rem;font-weight:700;letter-spacing:1px;
+  text-align:center;pointer-events:none;
+}
+/* 图片放大弹窗 */
+.image-overlay{
+  display:none;position:fixed;inset:0;z-index:99999;
+  background:rgba(0,0,0,.88);align-items:center;justify-content:center;
+  cursor:pointer;flex-direction:column;
+}
+.image-overlay.active{display:flex}
+.image-overlay img{
+  max-width:min(95vw,900px);max-height:min(92vh,700px);
+  border-radius:16px;box-shadow:0 12px 48px rgba(0,0,0,.5);
+  animation:qrZoom .3s ease;object-fit:contain;
+}
+.image-overlay .close-hint{
+  margin-top:20px;color:rgba(255,255,255,.5);font-size:.9rem;letter-spacing:2px;
+}
 /* 营地特色列表 */
 .camp-features{
   display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:28px;
@@ -845,40 +870,24 @@ body{
 
     <div class="camp-gallery">
       <div class="gallery-item">
-        <div class="placeholder">
-          🏕️
-          <span>营地全景</span>
-        </div>
+        <img src="营地全景.jpg" alt="营地全景" loading="lazy" onclick="openImageZoom('营地全景.jpg')" title="点击放大">
+        <div class="gallery-label">营地全景</div>
       </div>
       <div class="gallery-item">
-        <div class="placeholder">
-          🏊
-          <span>标准游泳池</span>
-        </div>
+        <img src="标准游泳池.jpg" alt="标准游泳池" loading="lazy" onclick="openImageZoom('标准游泳池.jpg')" title="点击放大">
+        <div class="gallery-label">标准游泳池</div>
       </div>
       <div class="gallery-item">
-        <div class="placeholder">
-          🏋️
-          <span>训练场地</span>
-        </div>
+        <img src="训练场地.jpg" alt="训练场地" loading="lazy" onclick="openImageZoom('训练场地.jpg')" title="点击放大">
+        <div class="gallery-label">训练场地</div>
       </div>
       <div class="gallery-item">
-        <div class="placeholder">
-          🛏️
-          <span>学员宿舍</span>
-        </div>
+        <img src="学员宿舍.jpg" alt="学员宿舍" loading="lazy" onclick="openImageZoom('学员宿舍.jpg')" title="点击放大">
+        <div class="gallery-label">学员宿舍</div>
       </div>
       <div class="gallery-item">
-        <div class="placeholder">
-          🍽️
-          <span>食堂餐厅</span>
-        </div>
-      </div>
-      <div class="gallery-item">
-        <div class="placeholder">
-          🏥
-          <span>医务保障</span>
-        </div>
+        <img src="食堂餐厅.jpg" alt="食堂餐厅" loading="lazy" onclick="openImageZoom('食堂餐厅.jpg')" title="点击放大">
+        <div class="gallery-label">食堂餐厅</div>
       </div>
     </div>
 
@@ -1153,7 +1162,7 @@ body{
       <!-- 微信咨询二维码 -->
       <div class="qr-final-card">
         <div class="qr-img-box" onclick="openQrZoom('qrCodeImg')" title="点击放大">
-          <img id="qrCodeImg" src="收款码.png" alt="微信咨询二维码">
+          <img id="qrCodeImg" src="微信扫码咨询.jpg" alt="微信咨询二维码">
         </div>
         <div class="qr-label">📱 微信扫码咨询</div>
         <div class="qr-hint">长按识别或扫码添加招生老师<br>（点击图片可放大）</div>
@@ -1192,8 +1201,14 @@ body{
 
 <!-- ==================== 二维码放大弹窗 ==================== -->
 <div class="qr-overlay" id="qrOverlay" onclick="closeQrZoom()">
-  <img id="qrOverlayImg" src="收款码.png" alt="微信咨询二维码（放大）">
+  <img id="qrOverlayImg" src="微信扫码咨询.jpg" alt="微信咨询二维码（放大）">
   <span class="qr-close-hint">点击任意处关闭</span>
+</div>
+
+<!-- ==================== 营地图片放大弹窗 ==================== -->
+<div class="image-overlay" id="imageOverlay" onclick="closeImageZoom()">
+  <img id="imageOverlayImg" src="" alt="营地图片（放大）">
+  <span class="close-hint">点击任意处关闭</span>
 </div>
 
 <!-- 联系电话浮动按钮 -->
@@ -1246,9 +1261,24 @@ function closeQrZoom(){
   document.body.style.overflow = '';
 }
 
+// ========== 营地图片放大弹窗 ==========
+function openImageZoom(src){
+  document.getElementById('imageOverlayImg').src = src;
+  document.getElementById('imageOverlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeImageZoom(){
+  document.getElementById('imageOverlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
 // ESC 键关闭弹窗
 document.addEventListener('keydown',function(e){
-  if(e.key === 'Escape') closeQrZoom();
+  if(e.key === 'Escape'){
+    closeQrZoom();
+    closeImageZoom();
+  }
 });
 
 // ========== 滚动动画（简易） ==========
